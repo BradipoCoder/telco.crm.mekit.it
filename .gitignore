@@ -1,0 +1,26 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+/vendor/
+.directory
+
+#CRM SPECIFIC FILES
+config.php
+
+#CRM SPECIFIC FOLDERS
+/cache/
+/data/
+/include/
+/install/
+/jssource/
+/metadata/
+/ModuleInstall/
+/modules/
+/service/
+/soap/
+/themes/
+/tmp/
+/upgrade/
+/upload/
+/XTempate/
+/Zend/
+

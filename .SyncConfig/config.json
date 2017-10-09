@@ -1,0 +1,9 @@
+{
+    "remote_name": "VHosting CRM Server",
+    "remote_address": "vhsrv3.mekit.it",
+    "remote_user": "telco.crm.mekit.it",
+    "local_root": "/home/jack/WWW/vhsrv3.mekit.it/telco.crm.mekit.it",
+    "remote_root": "/home/telco.crm.mekit.it/httpdocs",
+    "rsync_options_up" : "--dry-run -rzvc --times --filter='P .SyncConfig' --filter='P .idea' --filter='P .git'",
+    "rsync_options_down" : "-rzvc --cvs-exclude --inplace --filter='P .SyncConfig' --filter='P .idea' --filter='P .git'"
+}
