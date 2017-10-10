@@ -41,3 +41,9 @@ $app_list_strings['moduleListSingular']['Cases']='RAS';
 $app_list_strings['record_type_display']['Cases']='RAS';
 $app_list_strings['parent_type_display']['Cases']='RAS';
 $app_list_strings['record_type_display_notes']['Cases']='RAS';
+$GLOBALS['app_list_strings']['case_type_dom']=array (
+  'Administration' => 'Amministrazione',
+  'Product' => 'Prodotto',
+  'User' => 'Utente',
+  'commessa' => 'Commessa',
+);

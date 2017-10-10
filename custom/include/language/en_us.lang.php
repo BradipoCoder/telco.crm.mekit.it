@@ -32,3 +32,9 @@ $GLOBALS['app_list_strings']['product_type_dom']=array (
   'Service' => 'Service',
   'Asset' => 'Asset',
 );
+$GLOBALS['app_list_strings']['case_type_dom']=array (
+  'Administration' => 'Administration',
+  'Product' => 'Product',
+  'User' => 'User',
+  'commessa' => 'Commessa',
+);

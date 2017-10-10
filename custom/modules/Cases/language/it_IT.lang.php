@@ -1,9 +1,8 @@
 <?php
-// created: 2017-10-10 14:32:26
+// created: 2017-10-10 15:35:51
 $mod_strings = array (
   'LBL_MEETINGS' => 'Appuntamento',
   'LBL_MODULE_NAME' => 'RAS',
-
   'LBL_CASE_SUBJECT' => 'Oggetto:',
   'LBL_CASE' => 'RAS:',
   'LBL_CONTACT_CASE_TITLE' => 'Contatto - RAS:',
@@ -21,8 +20,10 @@ $mod_strings = array (
   'LBL_CASE_INFORMATION' => 'Informazioni RAS',
   'LBL_AOP_CASE_UPDATES' => 'Aggiornamenti RAS',
   'LBL_AOP_CASE_UPDATES_THREADED' => 'Aggiornamento RAS Threaded',
-  'LBL_NO_CASE_UPDATES' => "Nessun aggiornamento per questo RAS",
+  'LBL_NO_CASE_UPDATES' => 'Nessun aggiornamento per questo RAS',
   'LBL_AOP_CASE_EVENTS' => 'Eventi RAS',
   'LBL_CASE_ATTACHMENTS_DISPLAY' => 'Allegati RAS:',
-  
+  'LBL_PRIORITY' => 'Priorità:',
+  'LBL_STATUS' => 'Fase:',
+  'LBL_LIST_STATUS' => 'Fase',
 );
