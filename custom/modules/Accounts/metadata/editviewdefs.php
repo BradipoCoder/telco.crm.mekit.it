@@ -34,17 +34,22 @@ array (
           'file' => 'modules/Accounts/Account.js',
         ),
       ),
-      'useTabs' => true,
+      'useTabs' => false,
       'tabDefs' => 
       array (
         'LBL_ACCOUNT_INFORMATION' => 
         array (
-          'newTab' => true,
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
+        'LBL_EDITVIEW_PANEL1' => 
+        array (
+          'newTab' => false,
           'panelDefault' => 'expanded',
         ),
         'LBL_PANEL_ADVANCED' => 
         array (
-          'newTab' => true,
+          'newTab' => false,
           'panelDefault' => 'expanded',
         ),
       ),
@@ -67,6 +72,11 @@ array (
         ),
         1 => 
         array (
+          0 => 'account_type',
+          1 => 'industry',
+        ),
+        2 => 
+        array (
           0 => 
           array (
             'name' => 'phone_office',
@@ -79,7 +89,7 @@ array (
             'label' => 'LBL_PHONE_ALT',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
@@ -93,7 +103,7 @@ array (
             'label' => 'LBL_FAX',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -101,11 +111,6 @@ array (
             'studio' => 'false',
             'label' => 'LBL_EMAIL',
           ),
-        ),
-        4 => 
-        array (
-          0 => 'account_type',
-          1 => 'industry',
         ),
         5 => 
         array (
@@ -116,7 +121,7 @@ array (
           ),
         ),
       ),
-      'LBL_PANEL_ADVANCED' => 
+      'lbl_editview_panel1' => 
       array (
         0 => 
         array (
@@ -148,12 +153,27 @@ array (
             ),
           ),
         ),
+      ),
+      'LBL_PANEL_ADVANCED' => 
+      array (
+        0 => 
+        array (
+          0 => 'parent_name',
+        ),
         1 => 
         array (
           0 => 
           array (
             'name' => 'assigned_user_name',
             'label' => 'LBL_ASSIGNED_TO',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
+          array (
+            'name' => 'modified_by_name',
+            'label' => 'LBL_MODIFIED_NAME',
           ),
           1 => 
           array (
@@ -162,7 +182,7 @@ array (
             'label' => 'LBL_DATE_MODIFIED',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (

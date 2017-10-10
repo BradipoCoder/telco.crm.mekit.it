@@ -8,6 +8,7 @@ $GLOBALS['app_list_strings']['account_type_dom']=array (
   'Other' => 'Other',
   'Supplier' => 'Fornitore',
 );
+
 $GLOBALS['app_list_strings']['industry_dom']=array (
   '' => '',
   'Construction' => 'Construction',
@@ -16,4 +17,5 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'Government' => 'Government',
   'Healthcare' => 'Healthcare',
   'Other' => 'Other',
+  'Accomodation' => 'Alberghiero',
 );

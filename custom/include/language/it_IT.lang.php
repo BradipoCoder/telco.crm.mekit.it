@@ -8,8 +8,10 @@ $GLOBALS['app_list_strings']['account_type_dom']=array (
   'Competitor' => 'Concorrenza',
   'Other' => 'Altro',
 );
+
 $GLOBALS['app_list_strings']['industry_dom']=array (
   '' => '',
+  'Accomodation' => 'Alberghiero',
   'Construction' => 'Costruzioni',
   'Education' => 'Istruzione',
   'Environmental' => 'Ambiente',
