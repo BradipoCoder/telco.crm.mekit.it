@@ -19,3 +19,16 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'Other' => 'Other',
   'Accomodation' => 'Alberghiero',
 );
+
+$GLOBALS['app_list_strings']['product_category_dom']=array (
+  '' => '',
+  'palazzetti' => 'Palazzetti',
+  'cola' => 'Cola',
+  'montegrappa' => 'Montegrappa',
+  'royal' => 'Royal',
+);
+$GLOBALS['app_list_strings']['product_type_dom']=array (
+  'Good' => 'Good',
+  'Service' => 'Service',
+  'Asset' => 'Asset',
+);

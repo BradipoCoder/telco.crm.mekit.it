@@ -19,3 +19,20 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'Healthcare' => 'Sanità',
   'Other' => 'Altro',
 );
+
+$GLOBALS['app_list_strings']['product_category_dom']=array (
+  '' => '',
+  'palazzetti' => 'Palazzetti',
+  'cola' => 'Cola',
+  'montegrappa' => 'Montegrappa',
+  'royal' => 'Royal',
+);
+$GLOBALS['app_list_strings']['product_type_dom']=array (
+  'Good' => 'Prodotto',
+  'Service' => 'Servizio',
+  'Asset' => 'Asset',
+);
+$app_list_strings['moduleList']['Meetings']='Appuntamenti';
+$app_list_strings['moduleListSingular']['Meetings']='Appuntamento';
+$app_list_strings['moduleListSingular']['AOR_Reports']='Report';
+$app_list_strings['record_type_display_notes']['Meetings']='Appuntamento';
