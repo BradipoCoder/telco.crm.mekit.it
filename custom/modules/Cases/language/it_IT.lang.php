@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-10 15:35:51
+// created: 2017-10-12 07:51:23
 $mod_strings = array (
   'LBL_MEETINGS' => 'Appuntamento',
   'LBL_MODULE_NAME' => 'RAS',
@@ -26,4 +26,5 @@ $mod_strings = array (
   'LBL_PRIORITY' => 'Priorità:',
   'LBL_STATUS' => 'Fase:',
   'LBL_LIST_STATUS' => 'Fase',
+  'LBL_TYPE' => 'Tipo',
 );

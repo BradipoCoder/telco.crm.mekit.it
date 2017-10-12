@@ -28,13 +28,6 @@ array (
       0 => 'account_id',
     ),
   ),
-  'TYPE' => 
-  array (
-    'type' => 'enum',
-    'label' => 'LBL_TYPE',
-    'width' => '10%',
-    'default' => true,
-  ),
   'PRIORITY' => 
   array (
     'width' => '10%',
@@ -67,6 +60,13 @@ array (
     'width' => '10%',
     'label' => 'LBL_DATE_ENTERED',
     'default' => true,
+  ),
+  'TYPE' => 
+  array (
+    'type' => 'enum',
+    'label' => 'LBL_TYPE',
+    'width' => '10%',
+    'default' => false,
   ),
 );
 ;

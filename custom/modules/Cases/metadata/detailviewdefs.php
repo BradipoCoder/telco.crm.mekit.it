@@ -50,11 +50,7 @@ array (
             'name' => 'name',
             'label' => 'LBL_SUBJECT',
           ),
-          1 => 
-          array (
-            'name' => 'case_number',
-            'label' => 'LBL_CASE_NUMBER',
-          ),
+          1 => 'account_name',
         ),
         1 => 
         array (
@@ -69,28 +65,24 @@ array (
         2 => 
         array (
           0 => 'priority',
-          1 => 
-          array (
-            'name' => 'suggestion_box',
-            'label' => 'LBL_SUGGESTION_BOX',
-          ),
+          1 => 'type',
         ),
         3 => 
-        array (
-          0 => 'type',
-          1 => 'account_name',
-        ),
-        4 => 
-        array (
-          0 => 'description',
-        ),
-        5 => 
         array (
           0 => 
           array (
             'name' => 'assigned_user_name',
             'label' => 'LBL_ASSIGNED_TO',
           ),
+          1 => 
+          array (
+            'name' => 'case_number',
+            'label' => 'LBL_CASE_NUMBER',
+          ),
+        ),
+        4 => 
+        array (
+          0 => 'description',
         ),
       ),
     ),
