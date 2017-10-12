@@ -45,3 +45,20 @@ $app_list_strings['record_type_display_notes']['Cases']='RAS';
 $GLOBALS['app_list_strings']['case_type_dom']=array (
   'commessa' => 'Commessa',
 );
+
+$GLOBALS['app_list_strings']['document_type_dom']=array (
+  'doc' => 'Documento generale',
+);
+$GLOBALS['app_list_strings']['document_status_dom']=array (
+  'Active' => 'Attivo',
+  'Draft' => 'Bozza',
+  'Expired' => 'Scaduto',
+);
+$app_list_strings['moduleList']['Documents']='Files';
+$app_list_strings['moduleListSingular']['Documents']='File';
+$app_list_strings['moduleList']['AOS_Quotes']='Documenti';
+$app_list_strings['moduleListSingular']['AOS_Quotes']='Documento';
+$GLOBALS['app_list_strings']['vat_list']=array (
+  '0.0' => 'Esente',
+  '22.0' => '22%',
+);

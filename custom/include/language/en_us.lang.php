@@ -36,3 +36,16 @@ $GLOBALS['app_list_strings']['product_type_dom']=array (
 $GLOBALS['app_list_strings']['case_type_dom']=array (
   'commessa' => 'Commessa',
 );
+
+$GLOBALS['app_list_strings']['document_type_dom']=array (
+  'doc' => 'Documento generale',
+);
+$GLOBALS['app_list_strings']['document_status_dom']=array (
+  'Active' => 'Active',
+  'Draft' => 'Draft',
+  'Expired' => 'Expired',
+);
+$GLOBALS['app_list_strings']['vat_list']=array (
+  '0.0' => '0%',
+  '22.0' => '22%',
+);

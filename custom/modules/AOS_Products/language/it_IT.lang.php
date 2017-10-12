@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-10 12:37:52
+// created: 2017-10-12 13:30:34
 $mod_strings = array (
   'LBL_TYPE' => 'Tipologia',
   'LBL_COST' => 'Costo(Listino)',
@@ -10,4 +10,5 @@ $mod_strings = array (
   'LBL_MAINCODE' => 'Lista Codici(NU)',
   'LBL_PRICE' => 'Prezzo',
   'LBL_PART_NUMBER' => 'Codice',
+  'LBL_CUSTOMERS_PURCHASED_PRODUCTS_SUBPANEL_TITLE' => 'Acquisti effettuati',
 );
