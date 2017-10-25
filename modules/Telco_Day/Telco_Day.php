@@ -2,6 +2,9 @@
 require_once 'data/SugarBean.php';
 require_once('include/utils.php');
 
+/**
+ * Class Telco_Day
+ */
 class Telco_Day extends SugarBean
 {
     var $module_dir = 'Telco_Day';
@@ -12,7 +15,9 @@ class Telco_Day extends SugarBean
     var $disable_custom_fields = true;
     var $disable_vardefs = true;
     
-    
+    /**
+     * Telco_Day constructor.
+     */
     function __construct()
     {
         parent::__construct();
@@ -36,8 +41,4 @@ class Telco_Day extends SugarBean
         
         return $answer;
     }
-    
-    
-    
-    
 }
