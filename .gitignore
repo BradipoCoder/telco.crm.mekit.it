@@ -14,7 +14,6 @@ config.php
 /jssource/
 /metadata/
 /ModuleInstall/
-/modules/
 /service/
 /soap/
 /themes/
@@ -24,3 +23,6 @@ config.php
 /XTempate/
 /Zend/
 
+# Modules folder - custom handling
+/modules/*
+!/modules/Telco_Day/
