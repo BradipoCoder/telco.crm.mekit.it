@@ -4,20 +4,19 @@
  * Date: 25/10/17
  * Time: 15.07
  */
+require_once ("modules/Telco_Day/views/view.php");
 
 /**
  * Class Telco_DayViewList
  */
-class Telco_DayViewList extends SugarView
+class Telco_DayViewList extends Telco_DayView
 {
     /**
      * Display view
      */
     public function display()
     {
-        echo '<h1>TELCO DAY</h1>';
-        echo '<a href="/index.php?module=Telco_Day&action=printView">STAMPA</a>';
+        $html = $this->getDisplayHtml();
+        print $html;
     }
-    
-    
 }
