@@ -15,7 +15,12 @@ class Telco_DayController extends SugarController
      */
     protected function action_listview()
     {
-        parent::action_listview();
+        $this->view = 'list';
+        
+        if(isset($_POST["pdf"]))
+        {
+            $this->view = 'print';
+        }
     }
     
     /**

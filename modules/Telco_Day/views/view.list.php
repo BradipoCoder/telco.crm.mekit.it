@@ -11,11 +11,17 @@ require_once ("modules/Telco_Day/views/view.php");
  */
 class Telco_DayViewList extends Telco_DayView
 {
+    
     /**
      * Display view
      */
     public function display()
     {
+        $this->interceptPostValues();
+        $this->prepareTemplateData();
+        
+        print_r($this->templateData);
+        
         $html = $this->getDisplayHtml();
         print $html;
     }

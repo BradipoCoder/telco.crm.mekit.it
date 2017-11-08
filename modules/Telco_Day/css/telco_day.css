@@ -1,0 +1,56 @@
+#telco_day {
+  /*border: 1px dotted $marked;*/
+  padding: 0;
+  margin: 0; }
+  #telco_day .configForm table {
+    margin: 15px auto;
+    border: 3px solid #e4c1c6;
+    border-radius: 5px;
+    background: #cccccc;
+    border-collapse: separate; }
+    #telco_day .configForm table td {
+      padding: 3px 10px; }
+  #telco_day h1.title {
+    text-align: center;
+    margin: 20px; }
+  #telco_day h2.title {
+    text-align: center;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #cccccc; }
+  #telco_day h4.title {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    background: #e4c1c6; }
+  #telco_day table.view {
+    width: 100%; }
+    #telco_day table.view > tbody > tr > td {
+      padding: 4px; }
+  #telco_day table.table-responsive {
+    width: 100%; }
+  #telco_day table.table-bordered {
+    border-collapse: collapse; }
+    #telco_day table.table-bordered > tbody > tr > td {
+      border: 1px solid #cccccc; }
+    #telco_day table.table-bordered > thead > tr > td {
+      border: 1px solid #cccccc; }
+    #telco_day table.table-bordered > thead > tr > th {
+      border: 1px solid #cccccc; }
+  #telco_day table.table-vspaced {
+    margin-bottom: 15px; }
+  #telco_day span.label {
+    font-weight: bold; }
+  #telco_day pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 11px;
+    line-height: 1.42857143;
+    color: #800000;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px; }
+
+/*# sourceMappingURL=telco_day.css.map */

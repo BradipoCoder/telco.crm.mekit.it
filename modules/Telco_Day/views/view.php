@@ -7,23 +7,56 @@
 
 class Telco_DayView extends SugarView
 {
+    /** @var string */
+    const DATE_FORMAT_ISO = "Y-m-d";
+    
+    /** @var string */
+    const DATE_FORMAT_FANCY = "l, j F";
+    
+    /** @var string */
+    private $purpose = "view";
+    
+    /** @var array */
+    protected $templateData = [];
+    
+    /** @var  string */
+    protected $templateHtml;
+    
     /** @var  \DateTime */
-    protected $today;
+    private $period_start;
+    
+    /** @var  \DateTime */
+    private $period_end;
+    
+    /** @var string */
+    protected  $default_interval_length = "-1 week";
+    
     
     /**
+     * @param \DateTime|mixed $startDate
+     * @param \DateTime|mixed $endDate
+     *
      * @return string
      */
-    protected function getDisplayHtml()
+    protected function getDisplayHtml($startDate = null, $endDate = null)
     {
+        $this->setPeriodStart($startDate);
+        $this->setPeriodEnd($endDate);
+        
         $templateFile = 'modules/Telco_Day/tpls/TelcoDayView.tpl';
         
-        $this->today = new \DateTime();
+
+        $this->ss->assign("purpose", $this->purpose);
     
-        $this->assignCurrentPeriodData();
+        //$this->assignCurrentPeriodData();
+        foreach($this->templateData["periods"] as $key => $value)
+        {
+            $this->ss->assign($key, $value);
+        }
+        
+        
         $this->assignUserData();
         $this->assignMeetingsData();
-        
-        
         
         if (inDeveloperMode()) {
             $this->ss->clear_compiled_tpl($templateFile);
@@ -32,6 +65,29 @@ class Telco_DayView extends SugarView
         return $this->ss->fetch($templateFile, null, null, false);
     }
     
+    
+    /**
+     *
+     * @param \DateTime|mixed $startDate
+     * @param \DateTime|mixed $endDate
+     */
+    protected function prepareTemplateData($startDate = null, $endDate = null)
+    {
+        $this->setPeriodStart($startDate);
+        $this->setPeriodEnd($endDate);
+        
+        $this->templateData["periods"]["period_start"] = $this->period_start;
+        $this->templateData["periods"]["period_end"] = $this->period_end;
+    
+        $this->templateData["periods"]["period_start_format_iso"] = $this->period_start->format(self::DATE_FORMAT_ISO);
+        $this->templateData["periods"]["period_end_format_iso"] = $this->period_end->format(self::DATE_FORMAT_ISO);
+    
+        $this->templateData["periods"]["period_start_format_fancy"] = $this->period_start->format(self::DATE_FORMAT_FANCY);
+        $this->templateData["periods"]["period_end_format_fancy"] = $this->period_end->format(self::DATE_FORMAT_FANCY);
+        
+        
+        
+    }
     
     private function assignMeetingsData()
     {
@@ -50,7 +106,8 @@ class Telco_DayView extends SugarView
             . " INNER JOIN meetings_users AS mu ON mu.meeting_id = mm.id"
             . " WHERE mu.user_id = " . $current_user->id
             . " AND mm.status = 'Planned'"
-            . " AND mm.date_start >= '".$this->today->format("Y-m-d")."' AND mm.date_start < ('".$this->today->format("Y-m-d")."' + INTERVAL 1 DAY)"
+            . " AND mm.date_start >= '".$this->period_start->format("Y-m-d")."'"
+            . " AND mm.date_start < '" .$this->period_end->format("Y-m-d")."'"
             . " AND mm.deleted = 0"
             . " AND mu.deleted = 0"
             . " ORDER BY mm.date_start ASC"
@@ -112,8 +169,14 @@ class Telco_DayView extends SugarView
      */
     private function assignCurrentPeriodData()
     {
-        $this->ss->assign("current_period_start", $this->today);
-        $this->ss->assign("current_period_end", $this->today);
+        $this->ss->assign("period_start", $this->period_start);
+        $this->ss->assign("period_end", $this->period_end);
+    
+        $this->ss->assign("period_start_format_iso", $this->period_start->format(self::DATE_FORMAT_ISO));
+        $this->ss->assign("period_end_format_iso", $this->period_end->format(self::DATE_FORMAT_ISO));
+    
+        $this->ss->assign("period_start_format_fancy", $this->period_start->format(self::DATE_FORMAT_FANCY));
+        $this->ss->assign("period_end_format_fancy", $this->period_end->format(self::DATE_FORMAT_FANCY));
     }
     
     /**
@@ -139,6 +202,82 @@ class Telco_DayView extends SugarView
                     $this->ss->assign($prefix . $k, $v);
                 }
             }
+        }
+    }
+    
+    /**
+     * @return \DateTime
+     */
+    public function getPeriodStart()
+    {
+        return $this->period_start;
+    }
+    
+    /**
+     * @param \DateTime $period_start
+     */
+    public function setPeriodStart($period_start)
+    {
+        if (!$period_start instanceof \DateTime)
+        {
+            if(!$this->period_start instanceof \DateTime)
+            {
+                $this->period_start = new \DateTime();
+            }
+        } else {
+            $this->period_start = $period_start;
+        }
+    }
+    
+    /**
+     * @return \DateTime
+     */
+    public function getPeriodEnd()
+    {
+        return $this->period_end;
+    }
+    
+    /**
+     * @param \DateTime $period_end
+     */
+    public function setPeriodEnd($period_end)
+    {
+        if (!$period_end instanceof \DateTime)
+        {
+            if(!$this->period_end instanceof \DateTime)
+            {
+                //setting a week back from today
+                $this->period_end = new \DateTime();
+                $this->period_start = clone $this->period_end;
+                $this->period_start->modify($this->default_interval_length);
+            }
+        } else {
+            $this->period_end = $period_end;
+        }
+    }
+    
+    /**
+     *
+     */
+    protected function interceptPostValues()
+    {
+        //print_r($_POST);
+        
+        if(isset($_POST["date_start"]) && !empty($_POST["date_start"]))
+        {
+            $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_start"]);
+            $this->setPeriodStart($d);
+        }
+        
+        if(isset($_POST["date_end"]) && !empty($_POST["date_end"]))
+        {
+            $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_end"]);
+            $this->setPeriodEnd($d);
+        }
+    
+        if(isset($_POST["pdf"]))
+        {
+            $this->purpose = 'pdf';
         }
     }
 }
