@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,UACA;;EAEE,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EAET,mBACA;IACE,UAAU,EAAE,MAAM;IAClB,MAAM,EAAE,CAAC;IACT,OAAO,EAAE,GAAG;IACZ,UAAU,EAdL,OAAO",
+"sources": ["telco_day_print.scss"],
+"names": [],
+"file": "telco_day_print.css"
+}

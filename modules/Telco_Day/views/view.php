@@ -14,7 +14,16 @@ class Telco_DayView extends SugarView
     const DATE_FORMAT_FANCY = "l, j F";
     
     /** @var string */
-    private $purpose = "view";
+    protected $purpose = "view";
+    
+    /** @var bool */
+    protected $debug = false;
+    
+    /** @var bool */
+    protected $showHtml = false;
+    
+    /** @var bool */
+    protected $forceDownload = true;
     
     /** @var array */
     protected $templateData = [];
@@ -29,14 +38,13 @@ class Telco_DayView extends SugarView
     private $period_end;
     
     /** @var string */
-    protected $default_interval_length = "-1 week";
+    protected $default_interval_length = "+1 day";
     
     /**
      * @return string
      */
     protected function getDisplayHtml()
     {
-        $this->ss->assign("purpose", $this->purpose);
         $this->ss->assign("tplData", $this->templateData);
         
         $templateFile = 'modules/Telco_Day/tpls/TelcoDayView.tpl';
@@ -58,8 +66,7 @@ class Telco_DayView extends SugarView
         $this->setPeriodStart($startDate);
         $this->setPeriodEnd($endDate);
     
-        
-        
+        $this->prepareConfigData();
         $this->prepareCurrentPeriodData();
         $this->prepareUserData();
         $this->prepareMeetingsData();
@@ -72,7 +79,7 @@ class Telco_DayView extends SugarView
         ];
     }
     
-    private function prepareMeetingsData()
+    protected function prepareMeetingsData()
     {
         /** @type \User $current_user */
         global $current_user;
@@ -94,6 +101,11 @@ class Telco_DayView extends SugarView
             . " AND mm.deleted = 0"
             . " AND mu.deleted = 0"
             . " ORDER BY mm.date_start ASC";
+        
+        if($this->debug)
+        {
+            print "<pre>SQL: " . $sql . "</pre>";
+        }
         
         $query = $db->query($sql);
         while ($row = $db->fetchByAssoc($query))
@@ -144,7 +156,10 @@ class Telco_DayView extends SugarView
         return $meeting;
     }
     
-    private function prepareCurrentPeriodData()
+    /**
+     *
+     */
+    protected function prepareCurrentPeriodData()
     {
         $this->templateData["periods"]["period_start"] = $this->period_start;
         $this->templateData["periods"]["period_end"] = $this->period_end;
@@ -157,7 +172,10 @@ class Telco_DayView extends SugarView
         $this->templateData["periods"]["period_end_format_fancy"] = $this->period_end->format(self::DATE_FORMAT_FANCY);
     }
     
-    private function prepareUserData()
+    /**
+     *
+     */
+    protected function prepareUserData()
     {
         /** @type \User $current_user */
         global $current_user;
@@ -172,6 +190,17 @@ class Telco_DayView extends SugarView
                 }
             }
         }
+    }
+    
+    /**
+     * Generic configuration values
+     */
+    protected function prepareConfigData()
+    {
+        $this->templateData["config"]["purpose"] = $this->purpose;
+        $this->templateData["config"]["debug"] = ($this->debug ? 1 : 0);
+        $this->templateData["config"]["print_show_html"] = ($this->showHtml ? 1 : 0);
+        $this->templateData["config"]["print_force_download"] = ($this->forceDownload ? 1 : 0);
     }
     
     /**
@@ -191,7 +220,9 @@ class Telco_DayView extends SugarView
         {
             if (!$this->period_start instanceof \DateTime)
             {
+                //by default we set tomorrows date
                 $this->period_start = new \DateTime();
+                $this->period_start->modify("+1 day");
             }
         }
         else
@@ -218,9 +249,8 @@ class Telco_DayView extends SugarView
             if (!$this->period_end instanceof \DateTime)
             {
                 //setting a week back from today
-                $this->period_end = new \DateTime();
-                $this->period_start = clone $this->period_end;
-                $this->period_start->modify($this->default_interval_length);
+                $this->period_end = clone $this->period_start;
+                $this->period_end->modify($this->default_interval_length);
             }
         }
         else
@@ -230,27 +260,42 @@ class Telco_DayView extends SugarView
     }
     
     /**
-     *
+     *  Intercept POST values
      */
     protected function interceptPostValues()
     {
-        //print_r($_POST);
-        
         if (isset($_POST["date_start"]) && !empty($_POST["date_start"]))
         {
             $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_start"]);
             $this->setPeriodStart($d);
         }
         
+        /*
         if (isset($_POST["date_end"]) && !empty($_POST["date_end"]))
         {
             $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_end"]);
             $this->setPeriodEnd($d);
         }
+        */
+        
+        //CONFIG (checkboxes are NOT present in POST when unchecked)
+        if(!empty($_POST))
+        {
+            $this->debug = isset($_POST["cfg_debug"]) && $_POST["cfg_debug"] == 1;
+            $this->showHtml = isset($_POST["cfg_print_show_html"]) && $_POST["cfg_print_show_html"] == 1;
+            $this->forceDownload = isset($_POST["cfg_print_force_download"]) && $_POST["cfg_print_force_download"] == 1;
+        }
+        
+        
         
         if (isset($_POST["pdf"]))
         {
             $this->purpose = 'pdf';
+        }
+        
+        if($this->debug)
+        {
+            print "<pre>POST: " . print_r($_POST, true) . "</pre>";
         }
     }
 }

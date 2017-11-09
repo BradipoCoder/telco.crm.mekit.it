@@ -12,18 +12,36 @@
         {$tplData.periods.period_start_format_fancy} - {$tplData.periods.period_end_format_fancy}
     </h2>
 
-    {if $purpose == "view"}
+    {if $tplData.config.purpose == "view"}
         <div class="configForm">
             <form id="configForm" method="post">
-                <table cellpadding="0" cellspacing="0">
+
+                <table class="configuration" cellpadding="0" cellspacing="0">
                     <tr>
                         <td>
-                            <label for="date_start">Inizio periodo</label>
+                            <input name="cfg_debug" type="checkbox" value="1" {if $tplData.config.debug}checked="checked"{/if} title="cfg_debug" />
+                            <label for="cfg_debug">Debug</label>
+                        </td>
+                        <td>
+                            <input name="cfg_print_show_html" type="checkbox" value="1" {if $tplData.config.print_show_html}checked="checked"{/if} title="cfg_print_show_html" />
+                            <label for="cfg_print_show_html">Show print html</label>
+                        </td>
+                        <td>
+                            <input name="cfg_print_force_download" type="checkbox" value="1" {if $tplData.config.print_force_download}checked="checked"{/if} title="cfg_print_force_download" />
+                            <label for="cfg_print_force_download">Force pdf download</label>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="parameters" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <label for="date_start">Giorno</label>
                             <input type="date" id="date_start" name="date_start" value="{$tplData.periods.period_start_format_iso}" />
                         </td>
                         <td>
-                            <label for="date_end">Fine periodo</label>
-                            <input type="date" id="date_end" name="date_end" value="{$tplData.periods.period_end_format_iso}" />
+                            {*<label for="date_end">Fine periodo</label>*}
+                            {*<input type="date" id="date_end" name="date_end" value="{$tplData.periods.period_end_format_iso}" />*}
                         </td>
                         <td>
                             <input type="submit" name="update" value="Aggiorna" />
@@ -122,7 +140,7 @@
         <h3>Nessun appuntamento per il periodo indicato.</h3>
     {/if}
 
-    {if $purpose == "view"}
+    {if $tplData.config.debug == 1}
         <hr/>
         <pre>
             {$tplData|@print_r:true}

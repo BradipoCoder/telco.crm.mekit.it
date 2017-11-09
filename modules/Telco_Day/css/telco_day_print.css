@@ -1,0 +1,11 @@
+#telco_day {
+  /*border: 1px dotted $marked;*/
+  padding: 0;
+  margin: 0; }
+  #telco_day h4.title {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    background: #69c732; }
+
+/*# sourceMappingURL=telco_day_print.css.map */

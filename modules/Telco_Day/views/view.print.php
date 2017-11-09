@@ -12,12 +12,6 @@ require_once("modules/Telco_Day/views/view.php");
  */
 class Telco_DayViewPrint extends Telco_DayView
 {
-    /** @var bool */
-    protected $showHtml = false;
-    
-    /** @var bool */
-    protected $forceDownload = false;
-    
     /**
      * Display view
      */
@@ -153,5 +147,4 @@ class Telco_DayViewPrint extends Telco_DayView
         
         return $tempFilePath;
     }
-    
 }
