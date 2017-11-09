@@ -1,4 +1,6 @@
-$marked: #69c732;
+$marked: #e4c1c6;
+$gray-light: #cccccc;
+$gray-medium: #aaaaaa;
 
 
 #telco_day
@@ -12,7 +14,13 @@ $marked: #69c732;
     text-align: center;
     margin: 0;
     padding: 5px;
-    background: $marked;
+    background: $gray-light;
+    font-size: 20px;
+
   }
 
+  tr.row-meeting
+  {
+    page-break-inside:avoid;
+  }
 }

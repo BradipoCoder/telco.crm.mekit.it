@@ -111,11 +111,14 @@ class Telco_DayViewPrint extends Telco_DayView
         $htmlUri = $_SERVER["HTTP_ORIGIN"] . "/" . $tempFilePath;
         $htmlUri = str_replace("https://", "http://", $htmlUri);
         
+        $now = new \DateTime();
+        
         $converterOptions = [
             "--footer-line" => "",
             "--footer-spacing" => 1,
-            "--footer-center" => "TELCO - " . $this->templateData["title"],
-            "--footer-font-size" => 10,
+            "--footer-font-size" => 8,
+            "--footer-left" => "TELCO - " . $this->templateData["title"],
+            "--footer-right" => "data stampa: " . $now->format("d/m/Y"),
         ];
     
         $flatConverterOptions = "";

@@ -6,32 +6,34 @@
 
 <div id="telco_day">
     <h1 class="title">
-        {$tplData.title}
+        {$tplData.periods.period_start_format_fancy}
     </h1>
     <h2 class="title">
-        {$tplData.periods.period_start_format_fancy} - {$tplData.periods.period_end_format_fancy}
+        {$tplData.title}
     </h2>
 
     {if $tplData.config.purpose == "view"}
         <div class="configForm">
             <form id="configForm" method="post">
 
-                <table class="configuration" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                            <input name="cfg_debug" type="checkbox" value="1" {if $tplData.config.debug}checked="checked"{/if} title="cfg_debug" />
-                            <label for="cfg_debug">Debug</label>
-                        </td>
-                        <td>
-                            <input name="cfg_print_show_html" type="checkbox" value="1" {if $tplData.config.print_show_html}checked="checked"{/if} title="cfg_print_show_html" />
-                            <label for="cfg_print_show_html">Show print html</label>
-                        </td>
-                        <td>
-                            <input name="cfg_print_force_download" type="checkbox" value="1" {if $tplData.config.print_force_download}checked="checked"{/if} title="cfg_print_force_download" />
-                            <label for="cfg_print_force_download">Force pdf download</label>
-                        </td>
-                    </tr>
-                </table>
+                {if $tplData.user.developer == "1"}
+                    <table class="configuration" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <input name="cfg_debug" type="checkbox" value="1" {if $tplData.config.debug}checked="checked"{/if} title="cfg_debug" />
+                                <label for="cfg_debug">Debug</label>
+                            </td>
+                            <td>
+                                <input name="cfg_print_show_html" type="checkbox" value="1" {if $tplData.config.print_show_html}checked="checked"{/if} title="cfg_print_show_html" />
+                                <label for="cfg_print_show_html">Show print html</label>
+                            </td>
+                            <td>
+                                <input name="cfg_print_force_download" type="checkbox" value="1" {if $tplData.config.print_force_download}checked="checked"{/if} title="cfg_print_force_download" />
+                                <label for="cfg_print_force_download">Force pdf download</label>
+                            </td>
+                        </tr>
+                    </table>
+                {/if}
 
                 <table class="parameters" cellpadding="0" cellspacing="0">
                     <tr>
@@ -59,7 +61,7 @@
         <table class="view table-responsive" cellpadding="0" cellspacing="0">
             <tbody>
                 {foreach from=$tplData.meetings item=meeting}
-                    <tr>
+                    <tr class="row-meeting">
                         <td style="vertical-align: top; width: 75%;">
                             <table class="view table-responsive table-bordered table-vspaced" cellpadding="0" cellspacing="0">
                                 <thead>
@@ -78,29 +80,65 @@
                                     </tr>
                                     <tr>
                                         <td><span class="label">Durata prevista:</span></td>
-                                        <td>{$meeting.duration_hours}:{$meeting.duration_minutes}</td>
+                                        <td>
+                                            {if $meeting.duration_hours == 1}
+                                                1 ora
+                                            {elseif $meeting.duration_hours > 1}
+                                                {$meeting.duration_hours} ore
+                                            {/if}
+
+                                            {if $meeting.duration_minutes}
+                                                {$meeting.duration_minutes} minuti
+                                            {/if}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><span class="label">Riferimento RAS:</span></td>
-                                        <td>{$meeting.case.case_number} - {$meeting.case.name}</td>
+                                        <td>
+                                            {if $meeting.case}
+                                                {$meeting.case.case_number} - {$meeting.case.name}
+                                            {/if}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><span class="label">Azienda</span></td>
-                                        <td>{$meeting.accounts.name}</td>
+                                        <td>
+                                            {if $meeting.accounts}
+                                                {$meeting.accounts.name}
+                                            {/if}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><span class="label">Indirizzo / Luogo</span></td>
                                         <td>
-                                            {$meeting.accounts.billing_address_street}<br />
-                                            {$meeting.accounts.billing_address_postalcode} - {$meeting.accounts.billing_address_city}<br />
-                                            {$meeting.location}<br />
+                                            {if $meeting.accounts}
+                                                {if $meeting.accounts.billing_address_street}
+                                                    {$meeting.accounts.billing_address_street}<br />
+                                                {/if}
+
+                                                {if $meeting.accounts.billing_address_postalcode}
+                                                    {$meeting.accounts.billing_address_postalcode}<br />
+                                                {/if}
+
+                                                {if $meeting.accounts.billing_address_city}
+                                                    {$meeting.accounts.billing_address_city}<br />
+                                                {/if}
+                                            {/if}
+
+                                            {if $meeting.location}
+                                                {$meeting.location}<br />
+                                            {/if}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><span class="label">Contatti</span></td>
                                         <td>
-                                            {$meeting.accounts.phone_office}<br />
-                                            {$meeting.accounts.phone_alternate}<br />
+                                            {if $meeting.accounts.phone_office}
+                                                {$meeting.accounts.phone_office}<br />
+                                            {/if}
+                                            {if $meeting.accounts.phone_alternate}
+                                                {$meeting.accounts.phone_alternate}<br />
+                                            {/if}
                                         </td>
                                     </tr>
                                     <tr>
@@ -123,11 +161,41 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        ...
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            1.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            3.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            4.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            5.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            6.&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            7.&nbsp;
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </td>

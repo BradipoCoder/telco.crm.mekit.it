@@ -6,6 +6,9 @@
     text-align: center;
     margin: 0;
     padding: 5px;
-    background: #69c732; }
+    background: #cccccc;
+    font-size: 20px; }
+  #telco_day tr.row-meeting {
+    page-break-inside: avoid; }
 
 /*# sourceMappingURL=telco_day_print.css.map */

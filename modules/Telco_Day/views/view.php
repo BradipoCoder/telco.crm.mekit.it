@@ -270,7 +270,7 @@ class Telco_DayView extends SugarView
             $this->setPeriodStart($d);
         }
         
-        /*
+        /* AUTOMATIC END DATE
         if (isset($_POST["date_end"]) && !empty($_POST["date_end"]))
         {
             $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_end"]);
@@ -285,8 +285,6 @@ class Telco_DayView extends SugarView
             $this->showHtml = isset($_POST["cfg_print_show_html"]) && $_POST["cfg_print_show_html"] == 1;
             $this->forceDownload = isset($_POST["cfg_print_force_download"]) && $_POST["cfg_print_force_download"] == 1;
         }
-        
-        
         
         if (isset($_POST["pdf"]))
         {

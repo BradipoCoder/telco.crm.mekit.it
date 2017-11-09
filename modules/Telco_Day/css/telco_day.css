@@ -15,7 +15,8 @@
     margin: 20px; }
   #telco_day h2.title {
     text-align: center;
-    margin: 0 0 10px 0;
+    padding-bottom: 10px;
+    margin: 0 0 20px 0;
     border-bottom: 1px solid #cccccc; }
   #telco_day h4.title {
     text-align: center;
@@ -25,7 +26,7 @@
   #telco_day table.view {
     width: 100%; }
     #telco_day table.view > tbody > tr > td {
-      padding: 4px; }
+      padding: 4px 8px; }
   #telco_day table.table-responsive {
     width: 100%; }
   #telco_day table.table-bordered {
@@ -39,7 +40,8 @@
   #telco_day table.table-vspaced {
     margin-bottom: 15px; }
   #telco_day span.label {
-    font-weight: bold; }
+    font-weight: bold;
+    white-space: nowrap; }
   #telco_day pre {
     display: block;
     padding: 9.5px;
