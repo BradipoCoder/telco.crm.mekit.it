@@ -29,42 +29,24 @@ class Telco_DayView extends SugarView
     private $period_end;
     
     /** @var string */
-    protected  $default_interval_length = "-1 week";
-    
+    protected $default_interval_length = "-1 week";
     
     /**
-     * @param \DateTime|mixed $startDate
-     * @param \DateTime|mixed $endDate
-     *
      * @return string
      */
-    protected function getDisplayHtml($startDate = null, $endDate = null)
+    protected function getDisplayHtml()
     {
-        $this->setPeriodStart($startDate);
-        $this->setPeriodEnd($endDate);
+        $this->ss->assign("purpose", $this->purpose);
+        $this->ss->assign("tplData", $this->templateData);
         
         $templateFile = 'modules/Telco_Day/tpls/TelcoDayView.tpl';
-        
-
-        $this->ss->assign("purpose", $this->purpose);
-    
-        //$this->assignCurrentPeriodData();
-        foreach($this->templateData["periods"] as $key => $value)
+        if (inDeveloperMode())
         {
-            $this->ss->assign($key, $value);
-        }
-        
-        
-        $this->assignUserData();
-        $this->assignMeetingsData();
-        
-        if (inDeveloperMode()) {
             $this->ss->clear_compiled_tpl($templateFile);
         }
         
         return $this->ss->fetch($templateFile, null, null, false);
     }
-    
     
     /**
      *
@@ -75,21 +57,22 @@ class Telco_DayView extends SugarView
     {
         $this->setPeriodStart($startDate);
         $this->setPeriodEnd($endDate);
-        
-        $this->templateData["periods"]["period_start"] = $this->period_start;
-        $this->templateData["periods"]["period_end"] = $this->period_end;
     
-        $this->templateData["periods"]["period_start_format_iso"] = $this->period_start->format(self::DATE_FORMAT_ISO);
-        $this->templateData["periods"]["period_end_format_iso"] = $this->period_end->format(self::DATE_FORMAT_ISO);
+        
+        
+        $this->prepareCurrentPeriodData();
+        $this->prepareUserData();
+        $this->prepareMeetingsData();
     
-        $this->templateData["periods"]["period_start_format_fancy"] = $this->period_start->format(self::DATE_FORMAT_FANCY);
-        $this->templateData["periods"]["period_end_format_fancy"] = $this->period_end->format(self::DATE_FORMAT_FANCY);
+        $this->templateData["title"] = "Appuntamenti per " . $this->templateData["user"]["full_name"];
         
-        
-        
+        //add css
+        $this->templateData["css"] = [
+            "/modules/Telco_Day/css/telco_day.css",
+        ];
     }
     
-    private function assignMeetingsData()
+    private function prepareMeetingsData()
     {
         /** @type \User $current_user */
         global $current_user;
@@ -98,7 +81,7 @@ class Telco_DayView extends SugarView
         global $db;
         
         $meetings = [];
-
+        
         $sql = ""
             . "SELECT mm.*, mu.*"
             . " FROM meetings AS mm"
@@ -106,12 +89,11 @@ class Telco_DayView extends SugarView
             . " INNER JOIN meetings_users AS mu ON mu.meeting_id = mm.id"
             . " WHERE mu.user_id = " . $current_user->id
             . " AND mm.status = 'Planned'"
-            . " AND mm.date_start >= '".$this->period_start->format("Y-m-d")."'"
-            . " AND mm.date_start < '" .$this->period_end->format("Y-m-d")."'"
+            . " AND mm.date_start >= '" . $this->period_start->format("Y-m-d") . "'"
+            . " AND mm.date_start < '" . $this->period_end->format("Y-m-d") . "'"
             . " AND mm.deleted = 0"
             . " AND mu.deleted = 0"
-            . " ORDER BY mm.date_start ASC"
-        ;
+            . " ORDER BY mm.date_start ASC";
         
         $query = $db->query($sql);
         while ($row = $db->fetchByAssoc($query))
@@ -125,8 +107,7 @@ class Telco_DayView extends SugarView
         }
         
         //print "MEETINGS: ". print_r($meetings, true);
-        
-        $this->ss->assign('meetings', $meetings);
+        $this->templateData["meetings"] = $meetings;
     }
     
     /**
@@ -136,7 +117,7 @@ class Telco_DayView extends SugarView
      */
     private function addCaseDataToMeeting($meeting)
     {
-        if($meeting->parent_type == 'Cases' && !empty($meeting->parent_id))
+        if ($meeting->parent_type == 'Cases' && !empty($meeting->parent_id))
         {
             $case = new \aCase();
             $case->retrieve($meeting->parent_id);
@@ -153,7 +134,7 @@ class Telco_DayView extends SugarView
      */
     private function addAccountsDataToMeeting($meeting)
     {
-        if(isset($meeting->case["account_id"]) && !empty($meeting->case["account_id"]))
+        if (isset($meeting->case["account_id"]) && !empty($meeting->case["account_id"]))
         {
             $account = new \Account();
             $account->retrieve($meeting->case["account_id"]);
@@ -163,43 +144,31 @@ class Telco_DayView extends SugarView
         return $meeting;
     }
     
-    
-    /**
-     * Current period/day data
-     */
-    private function assignCurrentPeriodData()
+    private function prepareCurrentPeriodData()
     {
-        $this->ss->assign("period_start", $this->period_start);
-        $this->ss->assign("period_end", $this->period_end);
-    
-        $this->ss->assign("period_start_format_iso", $this->period_start->format(self::DATE_FORMAT_ISO));
-        $this->ss->assign("period_end_format_iso", $this->period_end->format(self::DATE_FORMAT_ISO));
-    
-        $this->ss->assign("period_start_format_fancy", $this->period_start->format(self::DATE_FORMAT_FANCY));
-        $this->ss->assign("period_end_format_fancy", $this->period_end->format(self::DATE_FORMAT_FANCY));
+        $this->templateData["periods"]["period_start"] = $this->period_start;
+        $this->templateData["periods"]["period_end"] = $this->period_end;
+        
+        $this->templateData["periods"]["period_start_format_iso"] = $this->period_start->format(self::DATE_FORMAT_ISO);
+        $this->templateData["periods"]["period_end_format_iso"] = $this->period_end->format(self::DATE_FORMAT_ISO);
+        
+        $this->templateData["periods"]["period_start_format_fancy"] =
+            $this->period_start->format(self::DATE_FORMAT_FANCY);
+        $this->templateData["periods"]["period_end_format_fancy"] = $this->period_end->format(self::DATE_FORMAT_FANCY);
     }
     
-    /**
-     * User data
-     */
-    private function assignUserData()
+    private function prepareUserData()
     {
         /** @type \User $current_user */
         global $current_user;
-    
-        $this->ss->assign("user", $current_user);
-    
-        //$current_user->full_name
         
-        $prefix = 'user_';
-    
-        foreach($current_user as $k => $v)
+        foreach ($current_user as $k => $v)
         {
-            if(is_string($v) || is_numeric($v))
+            if (is_string($v) || is_numeric($v))
             {
-                if(!empty($v))
+                if (!empty($v))
                 {
-                    $this->ss->assign($prefix . $k, $v);
+                    $this->templateData["user"][$k] = $v;
                 }
             }
         }
@@ -220,11 +189,13 @@ class Telco_DayView extends SugarView
     {
         if (!$period_start instanceof \DateTime)
         {
-            if(!$this->period_start instanceof \DateTime)
+            if (!$this->period_start instanceof \DateTime)
             {
                 $this->period_start = new \DateTime();
             }
-        } else {
+        }
+        else
+        {
             $this->period_start = $period_start;
         }
     }
@@ -244,14 +215,16 @@ class Telco_DayView extends SugarView
     {
         if (!$period_end instanceof \DateTime)
         {
-            if(!$this->period_end instanceof \DateTime)
+            if (!$this->period_end instanceof \DateTime)
             {
                 //setting a week back from today
                 $this->period_end = new \DateTime();
                 $this->period_start = clone $this->period_end;
                 $this->period_start->modify($this->default_interval_length);
             }
-        } else {
+        }
+        else
+        {
             $this->period_end = $period_end;
         }
     }
@@ -263,19 +236,19 @@ class Telco_DayView extends SugarView
     {
         //print_r($_POST);
         
-        if(isset($_POST["date_start"]) && !empty($_POST["date_start"]))
+        if (isset($_POST["date_start"]) && !empty($_POST["date_start"]))
         {
             $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_start"]);
             $this->setPeriodStart($d);
         }
         
-        if(isset($_POST["date_end"]) && !empty($_POST["date_end"]))
+        if (isset($_POST["date_end"]) && !empty($_POST["date_end"]))
         {
             $d = \DateTime::createFromFormat(self::DATE_FORMAT_ISO, $_POST["date_end"]);
             $this->setPeriodEnd($d);
         }
-    
-        if(isset($_POST["pdf"]))
+        
+        if (isset($_POST["pdf"]))
         {
             $this->purpose = 'pdf';
         }

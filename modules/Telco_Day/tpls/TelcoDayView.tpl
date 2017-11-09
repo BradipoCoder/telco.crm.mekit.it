@@ -1,12 +1,15 @@
-
-<link rel="stylesheet" type="text/css" href="/modules/Telco_Day/css/telco_day.css"/>
+{if $tplData.css|@count}
+    {foreach from=$tplData.css item=cssPath}
+        <link rel="stylesheet" type="text/css" href="{$cssPath}"/>
+    {/foreach}
+{/if}
 
 <div id="telco_day">
     <h1 class="title">
-        TELCO DAY - {$user_full_name}
+        {$tplData.title}
     </h1>
     <h2 class="title">
-        {$period_start_format_fancy} - {$period_end_format_fancy}
+        {$tplData.periods.period_start_format_fancy} - {$tplData.periods.period_end_format_fancy}
     </h2>
 
     {if $purpose == "view"}
@@ -16,11 +19,11 @@
                     <tr>
                         <td>
                             <label for="date_start">Inizio periodo</label>
-                            <input type="date" id="date_start" name="date_start" value="{$period_start_format_iso}" />
+                            <input type="date" id="date_start" name="date_start" value="{$tplData.periods.period_start_format_iso}" />
                         </td>
                         <td>
                             <label for="date_end">Fine periodo</label>
-                            <input type="date" id="date_end" name="date_end" value="{$period_end_format_iso}" />
+                            <input type="date" id="date_end" name="date_end" value="{$tplData.periods.period_end_format_iso}" />
                         </td>
                         <td>
                             <input type="submit" name="update" value="Aggiorna" />
@@ -34,10 +37,10 @@
         </div>
     {/if}
 
-    {if $meetings|@count}
+    {if $tplData.meetings|@count}
         <table class="view table-responsive" cellpadding="0" cellspacing="0">
             <tbody>
-                {foreach from=$meetings item=meeting}
+                {foreach from=$tplData.meetings item=meeting}
                     <tr>
                         <td style="vertical-align: top; width: 75%;">
                             <table class="view table-responsive table-bordered table-vspaced" cellpadding="0" cellspacing="0">
@@ -114,13 +117,15 @@
                 {/foreach}
             </tbody>
         </table>
-        {*<hr/>*}
-        {*<pre>*}
-            {*{$meetings|@print_r:true}*}
-        {*</pre>*}
+
     {else}
         <h3>Nessun appuntamento per il periodo indicato.</h3>
     {/if}
 
-
+    {if $purpose == "view"}
+        <hr/>
+        <pre>
+            {$tplData|@print_r:true}
+        </pre>
+    {/if}
 </div>

@@ -1,0 +1,18 @@
+$marked: #69c732;
+
+
+#telco_day
+{
+  /*border: 1px dotted $marked;*/
+  padding: 0;
+  margin: 0;
+
+  h4.title
+  {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    background: $marked;
+  }
+
+}

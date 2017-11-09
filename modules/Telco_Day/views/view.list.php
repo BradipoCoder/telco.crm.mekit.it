@@ -4,14 +4,13 @@
  * Date: 25/10/17
  * Time: 15.07
  */
-require_once ("modules/Telco_Day/views/view.php");
+require_once("modules/Telco_Day/views/view.php");
 
 /**
  * Class Telco_DayViewList
  */
 class Telco_DayViewList extends Telco_DayView
 {
-    
     /**
      * Display view
      */
@@ -19,9 +18,6 @@ class Telco_DayViewList extends Telco_DayView
     {
         $this->interceptPostValues();
         $this->prepareTemplateData();
-        
-        print_r($this->templateData);
-        
         $html = $this->getDisplayHtml();
         print $html;
     }

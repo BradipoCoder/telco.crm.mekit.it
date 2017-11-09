@@ -5,7 +5,7 @@
  * Time: 15.07
  */
 
-require_once ("modules/Telco_Day/views/view.php");
+require_once("modules/Telco_Day/views/view.php");
 
 /**
  * Class Telco_DayViewList
@@ -13,7 +13,10 @@ require_once ("modules/Telco_Day/views/view.php");
 class Telco_DayViewPrint extends Telco_DayView
 {
     /** @var bool */
-    private $forceDownload = false;
+    protected $showHtml = false;
+    
+    /** @var bool */
+    protected $forceDownload = false;
     
     /**
      * Display view
@@ -23,35 +26,64 @@ class Telco_DayViewPrint extends Telco_DayView
         ob_end_clean();
         $this->interceptPostValues();
         $this->prepareTemplateData();
-    
+        
+        $pageTemplateData = [
+            "title" => $this->templateData["title"],
+        ];
+        
+        //copy css array to page template data and remove it from content
+        $pageTemplateData["css"] = $this->templateData["css"];
+        $pageTemplateData["css"] = array_merge($pageTemplateData["css"], [
+            "/modules/Telco_Day/css/telco_day_print.css",
+        ]);
+        $this->templateData["css"] = [];
+        
+        $pageTemplateData["page_content"] = $this->getDisplayHtml();
+        
         $templateFile = 'modules/Telco_Day/tpls/TelcoPrintHtml.tpl';
         $outputTemplate = new \Sugar_Smarty();
-        
-        $outputTemplate->assign("page_title", "Telco day");
-        $outputTemplate->assign("page_content", $this->getDisplayHtml());
-        
+        $outputTemplate->assign("tplData", $pageTemplateData);
         $pageHtml = $outputTemplate->fetch($templateFile, null, null, false);
         
-        $fileServed = false;
-        $tempFilePath = $this->createTemporaryHtmlFile($pageHtml);
-        if($tempFilePath)
+        if ($this->showHtml)
         {
-            $pdfPath = $this->createPdf($tempFilePath);
-            if($pdfPath)
-            {
-                $this->handleOutput($pdfPath, "x.pdf");
-                $fileServed = true;
-            }
+            print $pageHtml;
         }
-        
-        if(!$fileServed)
+        else
         {
-            print "Error creating pdf!";
+            $fileServed = false;
+            $tempFilePath = $this->createTemporaryHtmlFile($pageHtml);
+            if ($tempFilePath)
+            {
+                $pdfPath = $this->createPdf($tempFilePath);
+                if ($pdfPath)
+                {
+                    $filename = $this->templateData["title"] . "("
+                        . $this->templateData["periods"]["period_start_format_iso"] . " - "
+                        . $this->templateData["periods"]["period_end_format_iso"] . ")"
+                        . ".pdf";
+                    
+                    
+                    $this->handleOutput($pdfPath, $filename);
+                    $fileServed = true;
+                    //unlink($pdfPath);
+                }
+                unlink($tempFilePath);
+            }
+            
+            if (!$fileServed)
+            {
+                print "Error creating pdf!";
+            }
         }
         
         exit();
     }
     
+    /**
+     * @param string $pdfPath
+     * @param string $filename
+     */
     private function handleOutput($pdfPath, $filename)
     {
         $disposition = $this->forceDownload ? "attachment" : "inline";
@@ -59,7 +91,7 @@ class Telco_DayViewPrint extends Telco_DayView
         header('Content-Description: File Transfer');
         header('Content-Type: application/pdf');
         header('Content-Transfer-Encoding: binary');
-        header('Content-Disposition: '.$disposition.'; filename="'.$filename.'"');
+        header('Content-Disposition: ' . $disposition . '; filename="' . $filename . '"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
@@ -80,12 +112,29 @@ class Telco_DayViewPrint extends Telco_DayView
     private function createPdf($tempFilePath)
     {
         $pdfPath = str_replace(".html", ".pdf", $tempFilePath);
-        $pdfPath = $_SERVER["DOCUMENT_ROOT"]  . "/" . $pdfPath;
+        $pdfPath = $_SERVER["DOCUMENT_ROOT"] . "/" . $pdfPath;
         
         $htmlUri = $_SERVER["HTTP_ORIGIN"] . "/" . $tempFilePath;
         $htmlUri = str_replace("https://", "http://", $htmlUri);
         
-        $command = "/usr/local/bin/wkhtmltopdf ${htmlUri} ${pdfPath}";
+        $converterOptions = [
+            "--footer-line" => "",
+            "--footer-spacing" => 1,
+            "--footer-center" => "TELCO - " . $this->templateData["title"],
+            "--footer-font-size" => 10,
+        ];
+    
+        $flatConverterOptions = "";
+        foreach($converterOptions as $k => $v)
+        {
+            $flatConverterOptions .= "${k} ";
+            if(!empty($v))
+            {
+                $flatConverterOptions .= "'${v}' ";
+            }
+        }
+        
+        $command = "/usr/local/bin/wkhtmltopdf ${flatConverterOptions} ${htmlUri} ${pdfPath}";
         @exec($command);
         
         return $pdfPath;
