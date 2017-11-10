@@ -58,7 +58,19 @@ $app_list_strings['moduleList']['Documents']='Files';
 $app_list_strings['moduleListSingular']['Documents']='File';
 $app_list_strings['moduleList']['AOS_Quotes']='Documenti';
 $app_list_strings['moduleListSingular']['AOS_Quotes']='Documento';
+$GLOBALS['app_list_strings']['aos_quote_type']=array (
+  'mov' => 'MOV - Movimentazione magazzino',
+  'bac' => 'BAC - Bolla di acquisto',
+  'orf' => 'ORF - Ordine fornitore',
+  'orc' => 'ORC - Ordine cliente',
+  'ofc' => 'OFC - Offerta cliente',
+  'fol' => 'FOL - Foglio di lavoro',
+);
+$GLOBALS['app_list_strings']['approval_status_dom']=array (
+  'Approved' => 'Approvato',
+  'Not Approved' => 'Non Approvato',
+);
 $GLOBALS['app_list_strings']['vat_list']=array (
+  '0.22' => '22%',
   '0.0' => 'Esente',
-  '22.0' => '22%',
 );

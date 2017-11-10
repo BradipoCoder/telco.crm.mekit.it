@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-12 13:42:46
+// created: 2017-10-13 08:27:00
 $mod_strings = array (
   'LBL_EDITVIEW_PANEL1' => 'Indirizzi',
   'LBL_DETAILVIEW_PANEL1' => 'Indirizzi',
@@ -8,4 +8,5 @@ $mod_strings = array (
   'LBL_CASES_SUBPANEL_TITLE' => 'RAS',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Files',
   'LBL_AOS_QUOTES' => 'Preventivi',
+  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatti',
 );

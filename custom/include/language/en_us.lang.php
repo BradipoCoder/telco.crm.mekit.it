@@ -45,7 +45,19 @@ $GLOBALS['app_list_strings']['document_status_dom']=array (
   'Draft' => 'Draft',
   'Expired' => 'Expired',
 );
+$GLOBALS['app_list_strings']['aos_quote_type']=array (
+  'mov' => 'MOV - Movimentazione magazzino',
+  'bac' => 'BAC - Bolla di acquisto',
+  'orf' => 'ORF - Ordine fornitore',
+  'orc' => 'ORC - Ordine cliente',
+  'ofc' => 'OFC - Offerta cliente',
+  'fol' => 'FOL - Foglio di lavoro',
+);
+$GLOBALS['app_list_strings']['approval_status_dom']=array (
+  'Approved' => 'Approved',
+  'Not Approved' => 'Not Approved',
+);
 $GLOBALS['app_list_strings']['vat_list']=array (
   '0.0' => '0%',
-  '22.0' => '22%',
+  '0.22' => '22%',
 );

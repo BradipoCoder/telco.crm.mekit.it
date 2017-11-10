@@ -41,16 +41,16 @@ array (
     'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
     'default' => true,
   ),
-  'PHONE_ALTERNATE' => 
-  array (
-    'width' => '10%',
-    'label' => 'LBL_OTHER_PHONE',
-    'default' => false,
-  ),
   'DATE_ENTERED' => 
   array (
     'width' => '5%',
     'label' => 'LBL_DATE_ENTERED',
+    'default' => true,
+  ),
+  'PHONE_ALTERNATE' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_OTHER_PHONE',
     'default' => false,
   ),
   'DATE_MODIFIED' => 

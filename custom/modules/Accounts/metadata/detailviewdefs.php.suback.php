@@ -40,12 +40,12 @@ array (
           'file' => 'modules/Accounts/Account.js',
         ),
       ),
-      'useTabs' => false,
+      'useTabs' => true,
       'tabDefs' => 
       array (
         'LBL_ACCOUNT_INFORMATION' => 
         array (
-          'newTab' => false,
+          'newTab' => true,
           'panelDefault' => 'expanded',
         ),
         'LBL_EDITVIEW_PANEL1' => 
@@ -55,11 +55,10 @@ array (
         ),
         'LBL_PANEL_ADVANCED' => 
         array (
-          'newTab' => false,
+          'newTab' => true,
           'panelDefault' => 'expanded',
         ),
       ),
-      'syncDetailEditViews' => true,
     ),
     'panels' => 
     array (
@@ -73,14 +72,38 @@ array (
             'comment' => 'Name of the Company',
             'label' => 'LBL_NAME',
           ),
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            'name' => 'account_type',
+            'comment' => 'The Company is of this type',
+            'label' => 'LBL_TYPE',
+          ),
           1 => 
+          array (
+            'name' => 'industry',
+            'comment' => 'The company belongs in this industry',
+            'label' => 'LBL_INDUSTRY',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
           array (
             'name' => 'phone_office',
             'comment' => 'The office phone number',
             'label' => 'LBL_PHONE_OFFICE',
           ),
+          1 => 
+          array (
+            'name' => 'phone_alternate',
+            'comment' => 'An alternate phone number',
+            'label' => 'LBL_PHONE_ALT',
+          ),
         ),
-        1 => 
+        3 => 
         array (
           0 => 
           array (
@@ -92,23 +115,8 @@ array (
               'link_target' => '_blank',
             ),
           ),
-          1 => 
-          array (
-            'name' => 'phone_fax',
-            'comment' => 'The fax phone number of this company',
-            'label' => 'LBL_FAX',
-          ),
         ),
-        2 => 
-        array (
-          0 => 
-          array (
-            'name' => 'email1',
-            'studio' => 'false',
-            'label' => 'LBL_EMAIL',
-          ),
-        ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -117,12 +125,13 @@ array (
             'label' => 'LBL_DESCRIPTION',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
-            'name' => 'assigned_user_name',
-            'label' => 'LBL_ASSIGNED_TO',
+            'name' => 'email1',
+            'studio' => 'false',
+            'label' => 'LBL_EMAIL',
           ),
         ),
       ),
@@ -158,43 +167,44 @@ array (
         array (
           0 => 
           array (
-            'name' => 'account_type',
-            'comment' => 'The Company is of this type',
-            'label' => 'LBL_TYPE',
-          ),
-          1 => 
-          array (
-            'name' => 'industry',
-            'comment' => 'The company belongs in this industry',
-            'label' => 'LBL_INDUSTRY',
+            'name' => 'parent_name',
+            'label' => 'LBL_MEMBER_OF',
           ),
         ),
         1 => 
         array (
           0 => 
           array (
-            'name' => 'annual_revenue',
-            'comment' => 'Annual revenue for this company',
-            'label' => 'LBL_ANNUAL_REVENUE',
-          ),
-          1 => 
-          array (
-            'name' => 'employees',
-            'comment' => 'Number of employees, varchar to accomodate for both number (100) or range (50-100)',
-            'label' => 'LBL_EMPLOYEES',
+            'name' => 'assigned_user_name',
+            'label' => 'LBL_ASSIGNED_TO',
           ),
         ),
         2 => 
         array (
           0 => 
           array (
-            'name' => 'parent_name',
-            'label' => 'LBL_MEMBER_OF',
+            'name' => 'modified_by_name',
+            'label' => 'LBL_MODIFIED_NAME',
+          ),
+          1 => 
+          array (
+            'name' => 'date_modified',
+            'label' => 'LBL_DATE_MODIFIED',
+            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
           ),
         ),
         3 => 
         array (
-          0 => 'campaign_name',
+          0 => 
+          array (
+            'name' => 'created_by_name',
+            'label' => 'LBL_CREATED',
+          ),
+          1 => 
+          array (
+            'name' => 'date_entered',
+            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
+          ),
         ),
       ),
     ),

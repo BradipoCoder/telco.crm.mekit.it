@@ -97,11 +97,6 @@ array (
             'type' => 'link',
             'label' => 'LBL_WEBSITE',
           ),
-          1 => 
-          array (
-            'name' => 'phone_fax',
-            'label' => 'LBL_FAX',
-          ),
         ),
         4 => 
         array (
