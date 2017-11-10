@@ -51,6 +51,15 @@ sugar_version.php
 sugarcrm.log
 SugarSecurity.php
 suitecrm.log
+suitecrm_1.log
+suitecrm_2.log
+suitecrm_3.log
+suitecrm_4.log
+suitecrm_5.log
+suitecrm_6.log
+suitecrm_7.log
+suitecrm_8.log
+suitecrm_9.log
 suitecrm_version.php
 testinstall.php
 TreeData.php

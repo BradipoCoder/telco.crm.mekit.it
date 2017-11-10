@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-13 08:27:00
+// created: 2017-11-10 10:01:34
 $mod_strings = array (
   'LBL_EDITVIEW_PANEL1' => 'Indirizzi',
   'LBL_DETAILVIEW_PANEL1' => 'Indirizzi',

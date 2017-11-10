@@ -56,4 +56,5 @@ $sugar_config['calculate_response_time'] = false;
 $sugar_config['enable_action_menu'] = false;
 $sugar_config['disabled_themes'] = '';
 $sugar_config['aos']['lineItems']['enableGroups'] = false;
+$sugar_config['logger']['level'] = 'error';
 /***CONFIGURATOR***/
