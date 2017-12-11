@@ -1,0 +1,40 @@
+/**Style**/
+/*# sourceMappingURL=themes/SuiteMekit/css/style.css.map */
+@import "normalize/_normalize";
+/* REMOVED FROM _head.tpl: fonts.css, grid.css, footable.core.css */
+@import 'SuiteCRM/grid';
+@import 'SuiteCRM/footable.core';
+/* REMOVED FROM _head.tpl: fonts.css, grid.css, footable.core.css */
+// Bootstrap Core variables and mixins
+@import "bootstrap/bootstrap/variables";
+@import "bootstrap/bootstrap/mixins";
+// Bootstrap overrides
+@import "SuiteCRM/variables";
+@import "bootstrap_overrides";
+// Bootstrap theme
+@import "bootstrap";
+// SuiteCRM theme
+@import 'SuiteCRM/mixins';
+@import 'SuiteCRM/main';
+@import 'SuiteCRM/sidebar';
+@import 'SuiteCRM/navbar';
+@import 'SuiteCRM/login';
+@import 'SuiteCRM/forms';
+@import 'SuiteCRM/dashboard';
+@import 'SuiteCRM/listview';
+@import 'SuiteCRM/detailview';
+@import 'SuiteCRM/editview';
+@import 'SuiteCRM/tabs';
+@import 'SuiteCRM/panels';
+@import 'SuiteCRM/admin';
+@import 'SuiteCRM/campaigns';
+@import 'SuiteCRM/yui';
+@import 'SuiteCRM/cases';
+@import 'SuiteCRM/calendar';
+@import 'SuiteCRM/email';
+@import 'SuiteCRM/modal';
+@import 'SuiteCRM/popup';
+@import 'SuiteCRM/suitepicon';
+@import "SuiteCRM/jstree";
+
+

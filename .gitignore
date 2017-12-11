@@ -16,7 +16,6 @@ config.php
 /ModuleInstall/
 /service/
 /soap/
-/themes/
 /tmp/
 /upgrade/
 /upload/
@@ -26,3 +25,8 @@ config.php
 # Modules folder - custom handling
 /modules/*
 !/modules/Telco_Day/
+
+# Themes folder - custom handling
+/themes/*
+!/themes/SuiteMekit/
+
