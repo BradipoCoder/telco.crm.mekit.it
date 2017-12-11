@@ -1,18 +1,25 @@
-/**Style**/
-/*# sourceMappingURL=themes/SuiteMekit/css/style.css.map */
+/**
+** SuiteMekit Style
+**/
+
 @import "normalize/_normalize";
+
 /* REMOVED FROM _head.tpl: fonts.css, grid.css, footable.core.css */
 @import 'SuiteCRM/grid';
 @import 'SuiteCRM/footable.core';
 /* REMOVED FROM _head.tpl: fonts.css, grid.css, footable.core.css */
+
 // Bootstrap Core variables and mixins
 @import "bootstrap/bootstrap/variables";
 @import "bootstrap/bootstrap/mixins";
+
 // Bootstrap overrides
 @import "SuiteCRM/variables";
 @import "bootstrap_overrides";
+
 // Bootstrap theme
 @import "bootstrap";
+
 // SuiteCRM theme
 @import 'SuiteCRM/mixins';
 @import 'SuiteCRM/main';
@@ -36,5 +43,4 @@
 @import 'SuiteCRM/popup';
 @import 'SuiteCRM/suitepicon';
 @import "SuiteCRM/jstree";
-
 

@@ -6,13 +6,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
-
     <title>{$APP.LBL_BROWSER_TITLE}</title>
+
+    <!--SUGAR CSS BEGIN-->
+    {$SUGAR_CSS}
+    <link rel="stylesheet" type="text/css" href="themes/{$THEME}/css/colourSelector.php">
+    <!--SUGAR CSS END-->
 
     <!--SUGAR JS BEGIN-->
     {$SUGAR_JS}
     <!--SUGAR JS END -->
-
 
     {literal}
     <script type="text/javascript">
@@ -29,14 +32,11 @@
     </script>
     {/literal}
 
-
-    <!--SUGAR CSS BEGIN-->
-    {$SUGAR_CSS}
-    <!--SUGAR CSS END-->
-
-    <link rel="stylesheet" type="text/css" href="themes/{$THEME}/css/colourSelector.php">
+    <!--SUGAR JS BEGIN-->
+    <script type="text/javascript" src='{sugar_getjspath file="themes/$THEME/js/bootstrap.min.js"}'></script>
     <script type="text/javascript" src='{sugar_getjspath file="themes/$THEME/js/jscolor.js"}'></script>
     <script type="text/javascript" src='{sugar_getjspath file="cache/include/javascript/sugar_field_grp.js"}'></script>
+    <!--SUGAR JS END -->
 </head>
 
 
