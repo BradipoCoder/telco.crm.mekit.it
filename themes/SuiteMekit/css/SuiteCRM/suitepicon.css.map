@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "mappings": "AACA,UAMC;EALG,WAAW,EAAE,YAAY;EACzB,GAAG,EAAE,gTAAqF;AAM9F,WAAY;EACR,WAAW,EAAE,CAAC;;AAGlB,kBAAmB;EACf,WAAW,EAAE,qBAAqB;EAClC,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,iBAAiB;EAC9B,cAAc,EAAE,GAAG",
-  "sources": [
-    "suitepicon.scss"
-  ],
-  "names": [],
-  "file": "suitepicon.css"
-}

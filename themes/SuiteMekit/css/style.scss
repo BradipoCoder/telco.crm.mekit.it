@@ -15,7 +15,8 @@
 
 // Bootstrap overrides
 @import "SuiteCRM/variables";
-@import "bootstrap_overrides";
+@import "overrides";
+@import 'mixins';
 
 // Bootstrap theme
 @import "bootstrap";
@@ -43,4 +44,3 @@
 @import 'SuiteCRM/popup';
 @import 'SuiteCRM/suitepicon';
 @import "SuiteCRM/jstree";
-

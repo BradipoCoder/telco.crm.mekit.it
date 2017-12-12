@@ -3,7 +3,7 @@
 
 // Mix ins:
 @mixin alertButton() {
-  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert.png");
+  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert.png");
   background-position: 0 0;
   background-color: $navbar-bg;
   border: none;
@@ -16,7 +16,7 @@
 
   .with-home-icon {
     display: inline-block;
-    background-image: url('../../../../themes/SuiteP/images/p_icon_home.png');
+    background-image: url('#{$image-path}/p_icon_home.png');
     background-position: 14px ($navbar-height / 3);
     background-repeat: no-repeat;
     color: $navbar-menu-link-color;
@@ -29,7 +29,7 @@
   }
 
   a:hover.with-home-icon {
-    background-image: url('../../../../themes/SuiteP/images/p_icon_home_hover.png');
+    background-image: url('#{$image-path}/p_icon_home_hover.png');
   }
 
   .dropdown-menu > li > a {
@@ -635,7 +635,7 @@
 
 .usermenu a .user_icon {
   display: inline-block;
-  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
   background-position: 0 -1;
   background-repeat: no-repeat;
   margin-right: 11px;
@@ -690,7 +690,7 @@
 }
 
 .mobileheader .modulename a {
-  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&themeName=SuiteP&imageName=p_create_arrow.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&themeName=SuiteP&imageName=p_create_arrow.png");
+  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&themeName=SuiteMekit&imageName=p_create_arrow.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&themeName=SuiteMekit&imageName=p_create_arrow.png");
   background-position: 92.5% 5px;
   background-repeat: no-repeat;
   padding: 15px 32px 18px 0;
@@ -734,7 +734,7 @@
 .searchform button {
   display: block;
   background-color: #65697A;
-  background-image: none, url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+  background-image: none, url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
   background-position: 14px 8px;
   background-repeat: no-repeat;
   color: $navbar-menu-link-color;
@@ -921,7 +921,7 @@
   display: inline-block;
   font-size: 13px;
   background-color: $navbar-quick-create-btn-bg;
-  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_create_arrow.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_create_arrow.png");
+  background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_create_arrow.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_create_arrow.png");
   background-position: 80px 2px;
   background-repeat: no-repeat;
   color: $navbar-quick-create-link-color;
@@ -998,7 +998,7 @@
 }
 
 .desktop_notifications > button {
-  background-image: none, url("../../../../themes/SuiteP/images/p_icon_alert.svg"), url("../../../../themes/SuiteP/images/p_icon_alert.png");
+  background-image: none, url("#{$image-path}/p_icon_alert.svg"), url("#{$image-path}/p_icon_alert.png");
   background-position: 0 0;
   background-repeat: no-repeat;
 }
@@ -1285,7 +1285,7 @@
 
   .navbar-search .searchbutton {
     background-color: transparent;
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button_small.svg"), url("../../../../themes/SuiteP/images/p_search_button_small.png");
+    background-image: none, url("#{$image-path}/p_search_button_small.svg"), url("#{$image-path}/p_search_button_small.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     padding: 0;
@@ -1299,7 +1299,7 @@
   }
 
   .navbar-search.open .searchbutton {
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button_small.svg"), url("../../../../themes/SuiteP/images/p_search_button_small.png");
+    background-image: none, url("#{$image-path}/p_search_button_small.svg"), url("#{$image-path}/p_search_button_small.png");
     background-position: 0 0;
     background-color: transparent;
   }
@@ -1309,12 +1309,12 @@
   }
 
   .searchformdropdown .btn {
-    background-image: url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-color: $navbar-search-bg;
   }
 
   .searchformdropdown .btn:hover {
-    background-image: url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-color: $navbar-search-btn-bg;
   }
   /* overridding bootstrap needs to be stacked */
@@ -1330,13 +1330,13 @@
     color: $default-btn-color;
     background-color: transparent;
     border-color: transparent;
-    background-image: url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.png");
+    background-image: url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.png");
 
   }
 
   .open.globalLinks > .btn-default:active {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1348,7 +1348,7 @@
 
   .open.globalLinks > .btn-default:active:hover {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1360,7 +1360,7 @@
 
   .open.globalLinks > .btn-default.focus:active {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1372,7 +1372,7 @@
 
   .globalLinks-mobile > .btn-default.usermenucollapsed {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon_small.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1384,7 +1384,7 @@
 
   .desktop_notifications > button {
     background-color: $mobile-navbar-toolbar-bg;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     //margin-right: 20px;
     //float: left;
@@ -1395,26 +1395,26 @@
 
   .desktop_notifications > button:hover {
     background-color: $mobile-navbar-toolbar-bg;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     background-color: $mobile-navbar-toolbar-bg;
     border: none;
   }
 
   .open > .dropdown-toggle.alertsButton.btn-danger:active {
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     background-color: $mobile-navbar-toolbar-bg
   }
 
   .open > .dropdown-toggle.alertsButton.btn-danger:focus {
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     background-color: $mobile-navbar-toolbar-bg
   }
 
   .open > .dropdown-toggle.alertsButton.btn-danger:hover {
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     background-color: $mobile-navbar-toolbar-bg
   }
@@ -1424,7 +1424,7 @@
   .desktop_notifications .btn-success.active,
   .desktop_notifications .btn-success:active,
   .desktop_notifications.open > .dropdown-toggle.btn-success {
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_icon_alert_small.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_icon_alert_small.png");
     background-position: 0 0;
     background-color: $mobile-navbar-toolbar-bg;
     border: none;
@@ -1628,7 +1628,7 @@
 
   .usermenucollapsed.btn-default {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-left: 0;
@@ -1656,20 +1656,20 @@
     color: $default-btn-color;
     background-color: transparent;
     border-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
   }
   .globalLinks-desktop {
     .btn-default.active,
     .btn-default:active,
     .open > .dropdown-toggle.btn-default {
       background-color: $navbar-bg;
-      background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+      background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     }
   }
 
   .open.globalLinks > .btn-default:active {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1681,7 +1681,7 @@
 
   .open.globalLinks > .btn-default:active:hover {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1693,7 +1693,7 @@
 
   .open.globalLinks > .btn-default.focus:active {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1705,7 +1705,7 @@
 
   .globalLinks-mobile > .btn-default.usermenucollapsed {
     background-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-top: 0;
@@ -1724,7 +1724,7 @@
 
   .navbar-search .searchbutton {
     background-color: transparent;
-    background-image: url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-repeat: no-repeat;
     padding: 0;
     border: none;
@@ -1738,7 +1738,7 @@
 
   .navbar-search .btn-default.searchbutton:active {
     background-color: transparent;
-    background-image: url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-repeat: no-repeat;
     padding: 0;
     border: none;
@@ -1752,7 +1752,7 @@
 
   .navbar-search .btn-default.searchbutton:hover {
     background-color: transparent;
-    background-image: url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-repeat: no-repeat;
     padding: 0;
     border: none;
@@ -1798,7 +1798,7 @@
 
   .navbar-search.open .btn-default.searchbutton {
     background-color: transparent;
-    background-image: url("../../../../themes/SuiteP/images/sidebar/modules/search-close.svg");
+    background-image: url("#{$image-path}/sidebar/modules/search-close.svg");
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 38px 38px;
@@ -1811,7 +1811,7 @@
 
   .navbar-search.open .btn-default.searchbutton:hover {
     background-color: transparent;
-    background-image: url("../../../../themes/SuiteP/images/sidebar/modules/search-close.svg");
+    background-image: url("#{$image-path}/sidebar/modules/search-close.svg");
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 38px 38px;
@@ -2010,7 +2010,7 @@
   }
 
   .mobile-bar .searchbutton.btn-default:hover {
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button_small.svg"), url("../../../../themes/SuiteP/images/p_search_button_small.png");
+    background-image: none, url("#{$image-path}/p_search_button_small.svg"), url("#{$image-path}/p_search_button_small.png");
     background-position: 0 0;
     border: none;
     background-color: $mobile-navbar-toolbar-bg;
@@ -2077,7 +2077,7 @@
 
   .globalLinks-mobile .dropdown-toggle {
     background-color: transparent;
-    background-image: none, url("../../../../themes/SuiteP/images/p_user_icon.svg"), url("../../../../themes/SuiteP/images/p_user_icon.png");
+    background-image: none, url("#{$image-path}/p_user_icon.svg"), url("#{$image-path}/p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-left: 0;
@@ -2116,7 +2116,7 @@
     color: $default-btn-color;
     background-color: transparent;
     border-color: transparent;
-    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=p_user_icon.png");
+    background-image: none, url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.svg"), url("../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=p_user_icon.png");
 
   }
 }
@@ -2241,7 +2241,7 @@
   .navbar-search .dropdown-menu button:active {
     display: block;
     background-color: transparent;
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: none, url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-position: 13px 10px;
     background-repeat: no-repeat;
     color: $navbar-menu-link-color;
@@ -2264,7 +2264,7 @@
 
   .searchformdropdown button:focus {
     display: block;
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: none, url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-position: 13px 10px;
     background-repeat: no-repeat;
     color: $navbar-menu-link-color;
@@ -2280,7 +2280,7 @@
   .searchformdropdown button {
     margin: 0;
     display: block;
-    background-image: none, url("../../../../themes/SuiteP/images/p_search_button.svg"), url("../../../../themes/SuiteP/images/p_search_button.png");
+    background-image: none, url("#{$image-path}/p_search_button.svg"), url("#{$image-path}/p_search_button.png");
     background-position: 5px 10px;
     background-repeat: no-repeat;
     color: $navbar-menu-link-color;
@@ -2317,7 +2317,7 @@
 
   .globalLinks-desktop .dropdown-toggle {
     background-color: transparent;
-    background-image: none, url("../../../../themes/SuiteP/images/p_user_icon.svg"), url("../../../../themes/SuiteP/images/p_user_icon.png");
+    background-image: none, url("#{$image-path}/p_user_icon.svg"), url("#{$image-path}/p_user_icon.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     margin-left: 0;

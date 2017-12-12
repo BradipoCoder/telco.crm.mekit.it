@@ -2047,7 +2047,7 @@ ul.clickMenu li a:hover {
 
 ul.clickMenu > li > span {
   display: inline-block;
-  background-image: none, url("../../../../themes/SuiteP/images/p_pag_tools.svg"), url("../../../../themes/SuiteP/images/p_pag_tools.png");
+  background-image: none, url("#{$image-path}/p_pag_tools.svg"), url("#{$image-path}/p_pag_tools.png");
   background-position: 0% 0%;
   background-repeat: no-repeat;
   background-size: 12px auto;
@@ -2110,7 +2110,7 @@ ul#detailViewActions.clickMenu {
 }
 
 .selectActionsDisabled span {
-  background-image: none, url("../../../../themes/SuiteP/images/p_pag_tools.svg"), url("../../../../themes/SuiteP/images/p_pag_tools.png");
+  background-image: none, url("#{$image-path}/p_pag_tools.svg"), url("#{$image-path}/p_pag_tools.png");
   background-position: 9px 7px;
   background-repeat: no-repeat;
   background-size: 12px auto;
@@ -2529,25 +2529,25 @@ dl {
 }
 
 #EditView_tabs .id-ff-remove img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-remove-nobg.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-remove-nobg.png');
   width: 32px;
   height: 32px;
 }
 
 #EditView_tabs .edit [type="button"] img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-remove-nobg.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-remove-nobg.png');
   width: 32px;
   height: 32px;
 }
 
 #conditionLines [type="button"] img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-remove-nobg.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-remove-nobg.png');
   width: 32px;
   height: 32px;
 }
 
 #actionLines [type="button"] img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-remove-nobg.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-remove-nobg.png');
   width: 32px;
   height: 32px;
 }
@@ -2557,7 +2557,7 @@ dl {
 }
 
 #actionLines tr td table tbody tr td div table tbody tr td table tbody tr td button[type="button"] img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&themeName=SuiteP&imageName=id-ff-remove-nobg.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&themeName=SuiteMekit&imageName=id-ff-remove-nobg.png');
 }
 
 #search_form span.id-ff.multiple {
@@ -2584,7 +2584,7 @@ input#btn_ActionLine.button[type="button"] {
 }
 
 #deleteGroup img {
-  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-clear.png');
+  content: url('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-clear.png');
   width: 32px;
   height: 32px;
 }
@@ -3390,12 +3390,12 @@ span.id-ff button img {
 }
 
 span.id-ff button:first-of-type img {
-  content: src('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-select.png');
+  content: src('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-select.png');
 
 }
 
 span.id-ff button:last-of-type img {
-  content: src('../../../../index.php?entryPoint=getImage&themeName=SuiteP&imageName=id-ff-select.png');
+  content: src('../../../../index.php?entryPoint=getImage&themeName=SuiteMekit&imageName=id-ff-select.png');
 }
 
 a.tabFormAdvLink {
@@ -4505,14 +4505,14 @@ object {
 }
 
 #reminders .add-btn {
-  background-image: url(../../../../themes/SuiteP/images/id-ff-add.png);
+  background-image: url(#{$image-path}/id-ff-add.png);
   background-position: 5px center;
   background-repeat: no-repeat;
   padding-left: 32px;
 }
 
 #reminders .remove-btn {
-  background-image: url(../../../../themes/SuiteP/images/id-ff-clear.png);
+  background-image: url(#{$image-path}/id-ff-clear.png);
   background-position: right 5px center;
   background-repeat: no-repeat;
   padding-right: 32px;
