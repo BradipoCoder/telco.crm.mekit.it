@@ -1,6 +1,10 @@
 /**** SIDEBAR ****/
 @import 'variables';
 
+.buttontoggle{
+  cursor: ew-resize;//pointer
+}
+
 .sidebar {
   display: block;
   position: fixed;

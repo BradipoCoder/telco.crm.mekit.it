@@ -2037,18 +2037,27 @@
   }
 
   .desktop-toolbar {
+    display: inline-block;
     width: 70%;
+    float:left;
   }
 
   .desktop-bar {
     display: inline-block;
     visibility: visible;
     text-align: right;
+    float:right;
+    padding:20px 10px;
     width: 28%;
   }
 
+
   .desktop-toolbar .navbar-brand-container {
     margin-left: 30px;
+    a.navbar-brand.with-home-icon
+    {
+      height:50px;
+    }
   }
 
   .desktop-bar > .toolbar {
@@ -2089,12 +2098,7 @@
     visibility: collapse;
     float: none;
   }
-  .desktop-toolbar {
-    display: inline-block;
-  }
-  .desktop-toolbar {
-    display: inline-block;
-  }
+
   .usermenucollapsed.btn-default {
     display: inline-block;
     margin: 0 0 0 5px;

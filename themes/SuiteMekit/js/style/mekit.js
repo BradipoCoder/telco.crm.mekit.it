@@ -1,5 +1,5 @@
 (function ($) {
   $(document).ready(function () {
-    // console.log("SuiteMekit ready...");
+    console.log("SuiteMekit ready...");
   });
 })(jQuery);

@@ -10,6 +10,7 @@ $themedef = [
     'version' => [
         'regex_matches' => ['.*']
     ],
+    'theme_class_file' => 'themes/SuiteMekit/SuiteMekitSugarTheme.php',
     'group_tabs' => true,
     'classic' => true,
     'configurable' => true,
