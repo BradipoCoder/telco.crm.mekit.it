@@ -1,4 +1,4 @@
-(function ($) {
+;(function ($) {
   $(document).ready(function () {
 
     // Toggle copyright popup
@@ -6,6 +6,16 @@
       $("#sugarcopy").toggle();
 
     });
+
+    /*
+    console.log("BTT2!");
+    // Back to top animation
+    $('#backtotop').click(function (event) {
+      event.preventDefault();
+      console.log("BTT-CLICK!");
+      $('html, body').animate({scrollTop: 0}, 500); // Scroll speed to the top
+    });
+    */
 
     // Fix for footer position
     if ($('#bootstrap-container footer').length > 0) {

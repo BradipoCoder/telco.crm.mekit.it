@@ -63,8 +63,7 @@
             </div>
         </div>
         <div class="footer_right">
-
-            <a onclick="SUGAR.util.top();" href="javascript:void(0)">{$MOD.LBL_SUITE_TOP}</a>
+            <a id="backtotop" onclick="SUGAR.util.top();" href="javascript:void(0)">{$MOD.LBL_SUITE_TOP}</a>
         </div>
     </footer>
     <!-- END Generic Footer -->
