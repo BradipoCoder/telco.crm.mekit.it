@@ -6,6 +6,8 @@ $mod_strings = array (
     'LNK_NEW_MEETING' => 'Nuovo Appuntamento',
     'LNK_MEETING_LIST' => 'Visualizza Appuntamenti',
     'LNK_IMPORT_MEETINGS' => 'Importa Appuntamenti',
-    'LBL_CREATE_MEETING' => 'Pianifica Appuntamento',
+    'LBL_CREATE_MEETING' => 'Appuntamento',
+    'LBL_CREATE_CALL' => 'Chiamata',
+    'LBL_CREATE_RAS' => 'RAS',
     'LBL_SETTINGS_COMPLETED_SHOW' => 'Mostra Appuntamenti, Compiti e Chiamate Completati:',
 );

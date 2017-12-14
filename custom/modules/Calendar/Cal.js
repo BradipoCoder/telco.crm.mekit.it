@@ -409,7 +409,6 @@ CAL.remove_shared = function (record_id, edit_all_recurrences) {
   });
 };
 
-/*
 CAL.change_activity_type = function (mod_name) {
   if (typeof CAL.current_params.module_name != "undefined")
     if (CAL.current_params.module_name == mod_name)
@@ -422,7 +421,6 @@ CAL.change_activity_type = function (mod_name) {
   QSProcessedFieldsArray = [];
   CAL.load_create_form(CAL.current_params);
 };
-*/
 
 CAL.load_create_form = function (params) {
   CAL.disable_buttons();

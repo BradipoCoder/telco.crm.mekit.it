@@ -40,6 +40,9 @@ require_once('include/MVC/View/views/view.ajax.php');
 require_once('include/EditView/EditView2.php');
 require_once("modules/Calendar/CalendarUtils.php");
 
+/**
+ * Class CalendarViewQuickEditRas
+ */
 class CalendarViewQuickEditRas extends SugarView
 {
 
