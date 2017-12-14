@@ -30,10 +30,9 @@ class CustomCalendarController extends CalendarController
         {
             $is_compound_module = true;
             $compound_module_name = $_REQUEST['current_module'];
-            $_REQUEST['current_module'] = "Meetings";
+            $_REQUEST['current_module'] = "Cases";
         }
 
-        //@todo: open Bug: Why is this checking "Detail" instead of "edit"
         if ($this->retrieveCurrentBean('Detail')) {
             $this->view_object_map['currentModule'] = $this->currentBean->module_dir;
             $this->view_object_map['currentBean'] = $this->currentBean;
@@ -42,11 +41,6 @@ class CustomCalendarController extends CalendarController
         if($is_compound_module)
         {
             $this->view = 'quickedit' . strtolower($compound_module_name);
-
-
-
-            //$this->view_object_map['currentModule'] = $this->currentBean->module_dir;
-            //$this->view_object_map['currentBean'] = $this->currentBean;
         }
     }
 

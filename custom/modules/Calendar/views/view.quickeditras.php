@@ -39,6 +39,7 @@
 require_once('include/MVC/View/views/view.ajax.php');
 require_once('include/EditView/EditView2.php');
 require_once("modules/Calendar/CalendarUtils.php");
+require_once('include/json_config.php');
 
 /**
  * Class CalendarViewQuickEditRas
@@ -64,74 +65,65 @@ class CalendarViewQuickEditRas extends SugarView
 
     public function display()
     {
-        $json_arr = array(
+        $moduleName = $this->view_object_map['currentModule'];
+
+        $_REQUEST['module'] = $moduleName;
+
+
+
+
+        if (!empty($this->bean->id)) {
+            global $json;
+            $json = getJSONobj();
+            $json_config = new json_config();
+            $gr = $json_config->getFocusData($moduleName, $this->bean->id);
+        } else {
+            $gr = "";
+        }
+
+        $json_arr = [
             'access' => 'yes',
             'module_name' => $this->bean->module_dir,
             'record' => $this->bean->id,
             'edit' => $this->editable,
-            'html' => $this->getTempHtml(),
-            'gr' => '',
-        );
+            /*'html'=> $this->ev->display(false, true),*/
+            'html' => $this->getMainDisplay(),
+            'gr' => $gr
+        ];
 
-        if ($repeat_arr = CalendarUtils::get_sendback_repeat_data($this->bean)) {
-            $json_arr = array_merge($json_arr, array("repeat" => $repeat_arr));
+        if($repeat_arr = CalendarUtils::get_sendback_repeat_data($this->bean)){
+            $json_arr = array_merge($json_arr,array("repeat" => $repeat_arr));
         }
 
         ob_clean();
-        echo json_encode($json_arr);
+        print json_encode($json_arr);
     }
+
 
     /**
      * @return string
      */
-    protected function getTempHtml()
+    protected function getMainDisplay()
     {
-        $answer = '';
+        $ss = new Sugar_Smarty();
 
-        $answer .= '<div id="EditView_tabs">';
+        $ss->assign('CASES_FORM', $this->getCasesEditForm());
+        //$ss->assign('APP', $app_strings);
 
-        $answer .= '<ul class="nav nav-tabs"></ul>';
-        $answer .= '<div class="clearfix"></div>';
-        $answer .= '<div class="tab-content" style="padding: 0; border: 0;"><div class="tab-pane panel-collapse">&nbsp;</div></div>';
-
-        $answer .= '<div class="panel-content">';
-
-        $answer .= '<div class="panel panel-default">';
-
-        $answer .= '<div class="panel-heading ">';
-        $answer .= '<a class="" role="button" data-toggle="collapse-edit" aria-expanded="false">';
-        $answer .= '<div class="col-xs-10 col-sm-11 col-md-11">';
-        $answer .= 'NUOVA RAS';
-        $answer .= '</div>';
-        $answer .= '</a>';
-        $answer .= '</div>';
-
-        $answer .= '<div class="panel-body panel-collapse collapse in" id="detailpanel_-1">';
-        $answer .= '<div class="tab-content">';
-        $answer .= '';
-        $answer .= 'My very cool form will be loaded here...';
-        $answer .= '';
-        $answer .= '</div>';
-        $answer .= '</div>';
-
-
-        $answer .= '</div>';
-        $answer .= '</div>';
-        $answer .= '</div>';
+        $answer = $ss->fetch("custom/modules/Calendar/tpls/ras.tpl");
 
         return $answer;
     }
 
 
-    public function display_orig()
+    /**
+     * @return string
+     */
+    public function getCasesEditForm()
     {
-        require_once("modules/Calendar/CalendarUtils.php");
+        $moduleName = "Cases";
 
-        $module = $this->view_object_map['currentModule'];
-
-        $_REQUEST['module'] = $module;
-
-        $base = 'modules/' . $module . '/metadata/';
+        $base = 'modules/' . $moduleName . '/metadata/';
         $source = 'custom/' . $base . 'quickcreatedefs.php';
         if (!file_exists($source)) {
             $source = $base . 'quickcreatedefs.php';
@@ -143,43 +135,18 @@ class CalendarViewQuickEditRas extends SugarView
             }
         }
 
-        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $module);
+        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
         $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
 
         $this->ev = new EditView();
         $this->ev->view = "QuickCreate";
         $this->ev->ss = new Sugar_Smarty();
         $this->ev->formName = "CalendarEditView";
-        $this->ev->setup($module, $this->bean, $source, $tpl);
+        $this->ev->setup($moduleName, $this->bean, $source, $tpl);
         $this->ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
         $this->ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
         $this->ev->process(false, "CalendarEditView");
 
-        if (!empty($this->bean->id)) {
-            require_once('include/json_config.php');
-            global $json;
-            $json = getJSONobj();
-            $json_config = new json_config();
-            $GRjavascript = $json_config->getFocusData($module, $this->bean->id);
-        } else {
-            $GRjavascript = "";
-        }
-
-
-        $json_arr = array(
-            'access' => 'yes',
-            'module_name' => $this->bean->module_dir,
-            'record' => $this->bean->id,
-            'edit' => $this->editable,
-            'html' => $this->ev->display(false, true),
-            'gr' => $GRjavascript,
-        );
-
-        if ($repeat_arr = CalendarUtils::get_sendback_repeat_data($this->bean)) {
-            $json_arr = array_merge($json_arr, array("repeat" => $repeat_arr));
-        }
-
-        ob_clean();
-        echo json_encode($json_arr);
+        return $this->ev->display(false, true);
     }
 }
