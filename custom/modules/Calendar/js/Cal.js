@@ -93,9 +93,11 @@ CAL.reset_edit_dialog = function () {
   $("#scheduler .schedulerInvitees").css("display", "");
   $("#create-invitees-title").css("display", "");
   $("#create-invitees-buttons").css("display", "");
+
   if (CAL.enable_repeat) {
     CAL.reset_repeat_form();
   }
+
   CAL.GR_update_focus("Meetings", "");
   CAL.select_tab("cal-tab-1");
 
@@ -207,7 +209,10 @@ CAL.fill_repeat_tab = function (data) {
  */
 CAL.repeat_tab_handle = function (module_name) {
   clear_all_errors();
-  toggle_repeat_type();
+  if (CAL.enable_repeat)
+  {
+    toggle_repeat_type();
+  }
 };
 
 /**
@@ -493,7 +498,10 @@ CAL.change_activity_type = function (mod_name) {
     if (CAL.current_params.module_name == mod_name)
       return;
   var e, user_name, user_id, date_start;
+
   CAL.get("title-cal-edit").innerHTML = CAL.lbl_loading;
+  CAL.get("form_content").innerHTML = "";
+
   document.forms["CalendarEditView"].elements["current_module"].value = mod_name;
   CAL.current_params.module_name = mod_name;
   QSFieldsArray = [];
@@ -632,6 +640,16 @@ CAL.dialog_create = function (date, end_date, user_id) {
   CAL.get("title-cal-edit").innerHTML = CAL.lbl_loading;
   CAL.open_edit_dialog();
   CAL.disable_buttons();
+
+
+  /**
+   * HIDE THE Invitee creation form
+   */
+  if (!CAL.enable_invitees) {
+    console.log("INVITIEES: " + CAL.enable_invitees);
+    document.getElementById("create-invitees").style.display = 'none';
+  }
+
   var module_name = CAL.get("current_module").value;
   if (CAL.view == 'sharedWeek' || CAL.view == 'sharedMonth') {
     user_name = "";

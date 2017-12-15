@@ -65,7 +65,10 @@
     CAL.current_user_id = global_current_user_id;
     CAL.current_user_name = global_current_user_name;
     CAL.time_format = "{$time_format}";
+
     CAL.enable_repeat = "{$enable_repeat}";
+    CAL.enable_invitees = false;
+
     CAL.items_draggable = "{$items_draggable}";
     CAL.items_resizable = "{$items_resizable}";
     CAL.cells_per_day = {$cells_per_day};
