@@ -22,7 +22,7 @@ array (
       'useTabs' => false,
       'tabDefs' => 
       array (
-        'DEFAULT' => 
+        'LBL_QUICKCREATE_PANEL1' => 
         array (
           'newTab' => false,
           'panelDefault' => 'expanded',
@@ -31,7 +31,7 @@ array (
     ),
     'panels' => 
     array (
-      'default' => 
+      'lbl_quickcreate_panel1' => 
       array (
         0 => 
         array (

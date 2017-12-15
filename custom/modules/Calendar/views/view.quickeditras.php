@@ -40,13 +40,14 @@ require_once('include/MVC/View/views/view.ajax.php');
 require_once('include/EditView/EditView2.php');
 require_once("modules/Calendar/CalendarUtils.php");
 require_once('include/json_config.php');
+require_once("data/BeanFactory.php");
 
 /**
  * Class CalendarViewQuickEditRas
  */
 class CalendarViewQuickEditRas extends SugarView
 {
-
+    /** @var EditView $ev */
     protected $ev;
 
     /**
@@ -68,9 +69,6 @@ class CalendarViewQuickEditRas extends SugarView
         $moduleName = $this->view_object_map['currentModule'];
 
         $_REQUEST['module'] = $moduleName;
-
-
-
 
         if (!empty($this->bean->id)) {
             global $json;
@@ -107,13 +105,17 @@ class CalendarViewQuickEditRas extends SugarView
     {
         $ss = new Sugar_Smarty();
 
-        $ss->assign('CASES_FORM', $this->getCasesEditForm());
-        //$ss->assign('APP', $app_strings);
+        $ss->assign('FORM_CASES', $this->getCasesEditForm());
+        $ss->assign('FORM_ACCOUNTS', $this->getAccountEditForm());
+        $ss->assign('FORM_MEETINGS', $this->getMeetingsEditForm());
+
 
         $answer = $ss->fetch("custom/modules/Calendar/tpls/ras.tpl");
 
         return $answer;
     }
+
+
 
 
     /**
@@ -122,7 +124,140 @@ class CalendarViewQuickEditRas extends SugarView
     public function getCasesEditForm()
     {
         $moduleName = "Cases";
+        $source = $this->getBestViewdefsPath($moduleName);
+        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
+        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
 
+
+        //$this->ev = new EditView();
+
+        $ev = new EditView();
+        $ev->view = "QuickCreate";
+        $ev->ss = new Sugar_Smarty();
+        $ev->formName = "CalendarEditView";
+
+        $this->bean->name = "Nuovo RAS di Adam";
+
+        $ev->setup($moduleName, $this->bean, $source, $tpl);
+        //$ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
+        //$ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
+        $ev->process(false, "CalendarEditView");
+
+
+        $html = $ev->display(false, true);
+
+        /*
+        $data = [];
+        $data[] = print_r($ev, true);
+        $html = '<pre>' . htmlentities(implode("\n", $data)). '</pre>';
+        */
+
+        return $html;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getMeetingsEditForm()
+    {
+        $moduleName = "Meetings";
+        $source = $this->getBestViewdefsPath($moduleName);
+        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
+        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
+
+
+        //$this->ev = new EditView();
+
+        $this->ev = new EditView();
+        $this->ev->view = "QuickCreate";
+        $this->ev->ss = new Sugar_Smarty();
+        $this->ev->formName = "CalendarEditView";
+
+        /** @var Meeting $bean */
+        $bean = BeanFactory::getBean($moduleName);
+        $bean->name = "Nuovo Meeting di Adam";
+
+
+
+        $this->ev->setup($moduleName, $bean, $source, $tpl);
+
+
+
+        //$this->ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
+        //$this->ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
+
+        $this->ev->process(false, "CalendarEditView");
+
+        $html = '';
+
+        //$html .= '<pre>DEFS: ' . htmlentities(print_r( $this->ev->defs, true)). '</pre>';
+        //$html .= '<pre>FIELDDEFS: ' . htmlentities(print_r( $this->ev->fieldDefs, true)). '</pre>';
+
+
+
+        $html .= $this->ev->display(false, true);
+
+
+
+        return $html;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getAccountEditForm()
+    {
+        $moduleName = "Accounts";
+        $source = $this->getBestViewdefsPath($moduleName);
+        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
+        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
+
+
+        //$this->ev = new EditView();
+
+        $this->ev = new EditView();
+        $this->ev->view = "QuickCreate";
+        $this->ev->ss = new Sugar_Smarty();
+        $this->ev->formName = "CalendarEditView";
+
+        /** @var Meeting $bean */
+        $bean = BeanFactory::getBean($moduleName);
+        $bean->name = "Nuovo Account di Adam";
+
+
+
+        $this->ev->setup($moduleName, $bean, $source, $tpl);
+
+
+
+        //$this->ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
+        //$this->ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
+
+        $this->ev->process(false, "CalendarEditView");
+
+        $html = '';
+
+        //$html .= '<pre>DEFS: ' . htmlentities(print_r( $this->ev->defs, true)). '</pre>';
+        //$html .= '<pre>FIELDDEFS: ' . htmlentities(print_r( $this->ev->fieldDefs, true)). '</pre>';
+
+
+
+        $html .= $this->ev->display(false, true);
+
+
+
+        return $html;
+    }
+
+
+    /**
+     * @param string $moduleName
+     * @return string
+     */
+    protected function getBestViewdefsPath($moduleName)
+    {
         $base = 'modules/' . $moduleName . '/metadata/';
         $source = 'custom/' . $base . 'quickcreatedefs.php';
         if (!file_exists($source)) {
@@ -135,20 +270,6 @@ class CalendarViewQuickEditRas extends SugarView
             }
         }
 
-        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
-        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
-
-        $this->ev = new EditView();
-        $this->ev->view = "QuickCreate";
-        $this->ev->ss = new Sugar_Smarty();
-        $this->ev->formName = "CalendarEditView";
-        $this->ev->setup($moduleName, $this->bean, $source, $tpl);
-        $this->ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
-        $this->ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
-        $this->ev->process(false, "CalendarEditView");
-
-        return $this->ev->display(false, true);
+        return $source;
     }
-
-
 }
