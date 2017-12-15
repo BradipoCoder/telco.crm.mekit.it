@@ -149,4 +149,6 @@ class CalendarViewQuickEditRas extends SugarView
 
         return $this->ev->display(false, true);
     }
+
+
 }

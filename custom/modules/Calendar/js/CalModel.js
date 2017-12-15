@@ -48,6 +48,7 @@ var CAL = {
 
   /* LABELS */
   lbl_create_new:   null,
+  lbl_create_new_type: {},
   lbl_edit:   null,
   lbl_saving:   null,
   lbl_loading:   null,

@@ -98,6 +98,7 @@ CAL.reset_edit_dialog = function () {
   }
   CAL.GR_update_focus("Meetings", "");
   CAL.select_tab("cal-tab-1");
+
   QSFieldsArray = [];
   QSProcessedFieldsArray = [];
 };
@@ -533,7 +534,8 @@ CAL.load_create_form = function (params) {
         CAL.get("record").value = "";
         CAL.record_editable = (res.edit == 1);
 
-        CAL.get("title-cal-edit").innerHTML = CAL.lbl_create_new + " - " + res.module_name;
+        //CAL.get("title-cal-edit").innerHTML = CAL.lbl_create_new_type;
+        CAL.get("title-cal-edit").innerHTML = CAL.lbl_create_new_type[res.module_name];
 
         if (typeof res.repeat != "undefined") {
           CAL.fill_repeat_tab(res.repeat);

@@ -79,6 +79,9 @@
 
     CAL.lbl_create_new = "{$MOD.LBL_CREATE_NEW_RECORD}";
 
+    CAL.lbl_create_new_type["Meetings"] = 'Registrazione nuovo Appuntamento';
+    CAL.lbl_create_new_type["Calls"] = 'Registrazione nuova Chiamata';
+    CAL.lbl_create_new_type["Cases"] = 'Registrazione nuova Richiesta di Assistenza - RAS';
 
     CAL.lbl_edit = "{$MOD.LBL_EDIT_RECORD}";
     CAL.lbl_saving = "{$MOD.LBL_SAVING}";
