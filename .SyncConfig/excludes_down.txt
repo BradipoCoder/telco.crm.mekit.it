@@ -17,6 +17,7 @@
 /upgrade/
 /upload/
 /vendor/
+/node_modules/
 /XTemplate/
 /Zend/
 

@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-12 13:30:34
+// created: 2017-12-13 14:28:53
 $mod_strings = array (
   'LBL_MEETINGS' => 'Appuntamento',
   'LBL_MODULE_NAME' => 'RAS',
@@ -28,4 +28,5 @@ $mod_strings = array (
   'LBL_LIST_STATUS' => 'Fase',
   'LBL_TYPE' => 'Tipo',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Files',
+  'LBL_SECURITYGROUPS_SUBPANEL_TITLE' => 'Gruppi di Sicurezza',
 );
