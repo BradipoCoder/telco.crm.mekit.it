@@ -1,21 +1,4 @@
-var CAL = {};
-CAL.slot_height = 14;
-CAL.dropped = 0;
-CAL.records_openable = true;
-CAL.moved_from_cell = "";
-CAL.deleted_id = "";
-CAL.deleted_module = "";
-CAL.tmp_header = "";
-CAL.disable_creating = false;
-CAL.record_editable = false;
-CAL.shared_users = {};
-CAL.shared_users_count = 0;
-CAL.script_evaled = false;
-CAL.editDialog = false;
-CAL.settingsDialog = false;
-CAL.sharedDialog = false;
-CAL.basic = {};
-CAL.basic.items = {};
+/* CAL model definition is in CalModel.js */
 CAL.update_dd = new YAHOO.util.CustomEvent("update_dd");
 CAL.dd_registry = {};
 CAL.resize_registry = {};
@@ -24,7 +7,10 @@ CAL.dom = YAHOO.util.Dom;
 CAL.get = YAHOO.util.Dom.get;
 CAL.query = YAHOO.util.Selector.query;
 
-
+/**
+ *
+ * @param id
+ */
 CAL.destroy_ui = function (id) {
   if (CAL.items_resizable && typeof CAL.resize_registry[id] != "undefined") {
     CAL.resize_registry[id].destroy();
@@ -35,31 +21,51 @@ CAL.destroy_ui = function (id) {
   delete CAL.dd_registry[id];
 };
 
+/**
+ *
+ * @param item
+ */
 CAL.basic.remove = function (item) {
   if (typeof CAL.basic.items[item.user_id] == 'undefined')
     CAL.basic.items[item.user_id] = {};
   delete CAL.basic.items[item.user_id][item.record];
 };
 
+/**
+ *
+ * @param item
+ */
 CAL.basic.add = function (item) {
   if (typeof CAL.basic.items[item.user_id] == 'undefined')
     CAL.basic.items[item.user_id] = {};
   CAL.basic.items[item.user_id][item.record] = item;
 };
 
+/**
+ *
+ */
 CAL.init_edit_dialog = function () {
   CAL.editDialog = false;
   var rd = CAL.get("cal-edit");
 };
 
+/**
+ *
+ */
 CAL.open_edit_dialog = function () {
   $('.modal-cal-edit').modal('show');
 };
 
+/**
+ *
+ */
 CAL.close_edit_dialog = function () {
   CAL.reset_edit_dialog();
 };
 
+/**
+ *
+ */
 CAL.remove_edit_dialog = function () {
   var rd_c = CAL.get("cal-edit_c");
   if (rd_c) {
@@ -67,6 +73,9 @@ CAL.remove_edit_dialog = function () {
   }
 };
 
+/**
+ *
+ */
 CAL.reset_edit_dialog = function () {
   var e;
   document.forms["CalendarEditView"].elements["current_module"].value = "RAS";
@@ -91,7 +100,11 @@ CAL.reset_edit_dialog = function () {
   CAL.select_tab("cal-tab-1");
   QSFieldsArray = [];
   QSProcessedFieldsArray = [];
-}
+};
+
+/**
+ *
+ */
 CAL.reset_repeat_form = function () {
   document.forms['CalendarRepeatForm'].reset();
   var fields = ['type', 'interval', 'count', 'until', 'dow'];
@@ -103,9 +116,19 @@ CAL.reset_repeat_form = function () {
   CAL.get("edit_all_recurrences").value = "";
   CAL.get("edit_all_recurrences_block").style.display = "none";
   CAL.get("cal-repeat-block").style.display = "none";
-}
+};
+
+/**
+ *
+ * @param tid
+ */
 CAL.select_tab = function (tid) {
-}
+  /*REMOVE?*/
+};
+
+/**
+ *
+ */
 CAL.fill_repeat_data = function () {
   if (CAL.enable_repeat && (CAL.get("current_module").value == "Meetings" || CAL.get("current_module").value == "Calls")) {
     if (repeat_type = document.forms['CalendarRepeatForm'].repeat_type.value) {
@@ -127,7 +150,12 @@ CAL.fill_repeat_data = function () {
       }
     }
   }
-}
+};
+
+/**
+ *
+ * @param data
+ */
 CAL.fill_repeat_tab = function (data) {
   if (!CAL.enable_repeat)
     return;
@@ -170,11 +198,21 @@ CAL.fill_repeat_tab = function (data) {
     CAL.get("repeat_dow_" + data.current_dow).checked = true;
   if (typeof data.default_repeat_until != "undefined" && set_default_repeat_until)
     CAL.get("repeat_until_input").value = data.default_repeat_until;
-}
+};
+
+/**
+ *
+ * @param {string} module_name
+ */
 CAL.repeat_tab_handle = function (module_name) {
   clear_all_errors();
   toggle_repeat_type();
-}
+};
+
+/**
+ *
+ * @param user_id
+ */
 CAL.GR_update_user = function (user_id) {
   var callback = {
     success: function (o) {
@@ -185,7 +223,13 @@ CAL.GR_update_user = function (user_id) {
   var data = {"users": user_id};
   var url = "index.php?module=Calendar&action=GetGRUsers&sugar_body_only=true";
   YAHOO.util.Connect.asyncRequest('POST', url, callback, CAL.toURI(data));
-}
+};
+
+/**
+ *
+ * @param module
+ * @param record
+ */
 CAL.GR_update_focus = function (module, record) {
   if (record == "") {
     GLOBAL_REGISTRY["focus"] = {"module": module, users_arr: [], fields: {"id": "-1"}};
@@ -204,10 +248,18 @@ CAL.GR_update_focus = function (module, record) {
     var url = 'index.php?module=Calendar&action=GetGR&sugar_body_only=true&type=' + module + '&record=' + record;
     YAHOO.util.Connect.asyncRequest('POST', url, callback, false);
   }
-}
+};
+
+/**
+ *
+ */
 CAL.toggle_settings = function () {
   $('.modal-calendar-settings').modal('toggle')
-}
+};
+
+/**
+ *
+ */
 CAL.fill_invitees = function () {
   CAL.get("user_invitees").value = "";
   CAL.get("contact_invitees").value = "";
@@ -223,7 +275,11 @@ CAL.fill_invitees = function () {
     var str = CAL.get(field_name).value;
     CAL.get(field_name).value = str + v.fields.id + ",";
   });
-}
+};
+
+/**
+ *
+ */
 CAL.repeat_type_selected = function () {
   var rt;
   if (rt = CAL.get("repeat_type")) {
@@ -246,7 +302,15 @@ CAL.repeat_type_selected = function () {
       CAL.get("repeat_end_date").removeAttribute("disabled");
     }
   }
-}
+};
+
+/**
+ *
+ * @param module_name
+ * @param record
+ * @param edit_all_recurrences
+ * @param cal_event
+ */
 CAL.load_form = function (module_name, record, edit_all_recurrences, cal_event) {
   CAL.disable_creating = true;
   var e;
@@ -370,7 +434,11 @@ CAL.load_form = function (module_name, record, edit_all_recurrences, cal_event) 
     var data = {"current_module": module_name, "record": record, "edit_all_recurrences": edit_all_recurrences};
     YAHOO.util.Connect.asyncRequest('POST', url, callback, CAL.toURI(data));
   }
-}
+};
+
+/**
+ *
+ */
 CAL.edit_all_recurrences = function () {
   var record = CAL.get("record").value;
   if (CAL.get("repeat_parent_id").value != "") {
@@ -381,7 +449,13 @@ CAL.edit_all_recurrences = function () {
   if (record != "") {
     CAL.load_form(module, record, true);
   }
-}
+};
+
+/**
+ *
+ * @param record_id
+ * @param edit_all_recurrences
+ */
 CAL.remove_shared = function (record_id, edit_all_recurrences) {
   if (typeof edit_all_recurrences == "undefined")
     edit_all_recurrences = false;
@@ -409,6 +483,10 @@ CAL.remove_shared = function (record_id, edit_all_recurrences) {
   });
 };
 
+/**
+ *
+ * @param {string} mod_name
+ */
 CAL.change_activity_type = function (mod_name) {
   if (typeof CAL.current_params.module_name != "undefined")
     if (CAL.current_params.module_name == mod_name)
@@ -422,12 +500,18 @@ CAL.change_activity_type = function (mod_name) {
   CAL.load_create_form(CAL.current_params);
 };
 
+/**
+ * Load the form for the selected module and inject it into the
+ * @param {{}} params
+ */
 CAL.load_create_form = function (params) {
   CAL.disable_buttons();
   ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING'));
   CAL.repeat_tab_handle(CAL.current_params.module_name);
+
   var callback = {
     success: function (o) {
+      var res;
       try {
         SUGAR.util.globalEval("retValue = (" + o.responseText + ")");
         res = retValue;
@@ -437,6 +521,7 @@ CAL.load_create_form = function (params) {
         ajaxStatus.hideStatus();
         return;
       }
+
       if (res.access == 'yes') {
         var fc = document.getElementById("form_content");
         CAL.script_evaled = false;
@@ -444,18 +529,16 @@ CAL.load_create_form = function (params) {
         if (!CAL.script_evaled) {
           SUGAR.util.evalScript(res.html);
         }
+
         CAL.get("record").value = "";
-        //CAL.get("current_module").value = res.module_name;
-        var mod_name = res.module_name;
-        if (res.edit == 1) {
-          CAL.record_editable = true;
-        } else {
-          CAL.record_editable = false;
-        }
-        CAL.get("title-cal-edit").innerHTML = CAL.lbl_create_new;
+        CAL.record_editable = (res.edit == 1);
+
+        CAL.get("title-cal-edit").innerHTML = CAL.lbl_create_new + " - " + res.module_name;
+
         if (typeof res.repeat != "undefined") {
           CAL.fill_repeat_tab(res.repeat);
         }
+
         CAL.enable_buttons();
         setTimeout(function () {
           SugarWidgetScheduler.update_time();
@@ -464,11 +547,11 @@ CAL.load_create_form = function (params) {
         }, 500);
         ajaxStatus.hideStatus();
       } else {
-        alert(CAL.lbl_error_loading);
+        alert("NO ACCESS! " + CAL.lbl_error_loading);
         ajaxStatus.hideStatus();
       }
     }, failure: function () {
-      alert(CAL.lbl_error_loading);
+      alert("FAILURE! " + CAL.lbl_error_loading);
       ajaxStatus.hideStatus();
     }
   };
@@ -488,6 +571,9 @@ CAL.load_create_form = function (params) {
   YAHOO.util.Connect.asyncRequest('POST', url, callback, CAL.toURI(data));
 };
 
+/**
+ *
+ */
 CAL.full_form = function () {
   var e = document.createElement('input');
   e.setAttribute('type', 'hidden');
@@ -502,7 +588,11 @@ CAL.full_form = function () {
   document.forms['CalendarEditView'].action = "index.php";
   document.forms['CalendarEditView'].full_form = "true";
   document.forms['CalendarEditView'].submit();
-}
+};
+
+/**
+ *
+ */
 CAL.disable_buttons = function () {
   CAL.get("btn-save").setAttribute("disabled", "disabled");
   CAL.get("btn-send-invites").setAttribute("disabled", "disabled");
@@ -512,7 +602,11 @@ CAL.disable_buttons = function () {
     CAL.get("btn-edit-all-recurrences").setAttribute("disabled", "disabled");
     CAL.get("btn-remove-all-recurrences").setAttribute("disabled", "disabled");
   }
-}
+};
+
+/**
+ *
+ */
 CAL.enable_buttons = function () {
   CAL.get("btn-save").removeAttribute("disabled");
   CAL.get("btn-send-invites").removeAttribute("disabled");
@@ -523,7 +617,14 @@ CAL.enable_buttons = function () {
     CAL.get("btn-edit-all-recurrences").removeAttribute("disabled");
     CAL.get("btn-remove-all-recurrences").removeAttribute("disabled");
   }
-}
+};
+
+/**
+ *
+ * @param date
+ * @param end_date
+ * @param user_id
+ */
 CAL.dialog_create = function (date, end_date, user_id) {
   var e, user_id, user_name;
   CAL.get("title-cal-edit").innerHTML = CAL.lbl_loading;
@@ -559,7 +660,11 @@ CAL.dialog_create = function (date, end_date, user_id) {
     CAL.current_params = params;
     CAL.load_create_form(CAL.current_params);
   }
-}
+};
+
+/**
+ *
+ */
 CAL.dialog_save = function () {
   CAL.disable_buttons();
   ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'));
@@ -637,7 +742,11 @@ CAL.dialog_save = function () {
   var url = "index.php?module=Calendar&action=SaveActivity&sugar_body_only=true";
   YAHOO.util.Connect.setForm(CAL.get("CalendarEditView"));
   YAHOO.util.Connect.asyncRequest('POST', url, callback, false);
-}
+};
+
+/**
+ *
+ */
 CAL.remove_all_recurrences = function () {
   if (confirm(CAL.lbl_confirm_remove_all_recurring)) {
     if (CAL.get("repeat_parent_id").value != '') {
@@ -646,7 +755,11 @@ CAL.remove_all_recurrences = function () {
     CAL.get("edit_all_recurrences").value = true;
     CAL.dialog_remove();
   }
-}
+};
+
+/**
+ *
+ */
 CAL.dialog_remove = function () {
   CAL.deleted_id = CAL.get("record").value;
   CAL.deleted_module = CAL.get("current_module").value;
@@ -676,7 +789,11 @@ CAL.dialog_remove = function () {
   var url = "index.php?module=Calendar&action=Remove&sugar_body_only=true";
   YAHOO.util.Connect.asyncRequest('POST', url, callback, CAL.toURI(data));
   $('.modal-cal-edit').modal('hide');
-}
+};
+
+/**
+ *
+ */
 CAL.refresh = function () {
   var callback = {
     success: function (o) {
@@ -690,54 +807,94 @@ CAL.refresh = function () {
       }
       CAL.update_dd.fire();
     }
-  }
+  };
   var data = {"view": CAL.view, "year": CAL.year, "month": CAL.month, "day": CAL.day};
   var url = "index.php?module=Calendar&action=getActivities&sugar_body_only=true";
   YAHOO.util.Connect.asyncRequest('POST', url, callback, CAL.toURI(data));
   CAL.clear();
-}
+};
+
+/**
+ *
+ */
 CAL.clear = function () {
   CAL.basic.items = {};
   var nodes = CAL.query("#cal-grid div.act_item");
   CAL.each(nodes, function (i, v) {
     nodes[i].parentNode.removeChild(nodes[i]);
   });
-}
+};
+
+/**
+ *
+ * @param id
+ */
 CAL.show_additional_details = function (id) {
   var obj = CAL.get(id);
   var record = obj.getAttribute("record");
   var module_name = obj.getAttribute("module_name");
   SUGAR.util.getAdditionalDetails(module_name, record, 'div_' + id, true);
   return;
-}
+};
+
+/**
+ *
+ * @param id
+ */
 CAL.clear_additional_details = function (id) {
   if (typeof SUGAR.util.additionalDetailsCache[id] != "undefined")
     SUGAR.util.additionalDetailsCache[id] = undefined;
   if (typeof SUGAR.util.additionalDetailsCalls[id] != "undefined")
     SUGAR.util.additionalDetailsCalls[id] = undefined;
-}
+};
+
+/**
+ *
+ */
 CAL.toggle_shared_edit = function () {
   $('.modal-calendar-user-list').modal('toggle');
-}
+};
+
+/**
+ *
+ */
 CAL.goto_date_call = function () {
   var date_string = CAL.get("goto_date").value;
   var date_arr = [];
   date_arr = date_string.split("/");
   window.location.href = "index.php?module=Calendar&view=" + CAL.view + "&day=" + date_arr[1] + "&month=" + date_arr[0] + "&year=" + date_arr[2];
-}
+};
+
+/**
+ *
+ * @return {boolean}
+ */
 CAL.check_forms = function () {
   if (CAL.enable_repeat && CAL.get("edit_all_recurrences").value != "") {
     lastSubmitTime = lastSubmitTime - 2001;
   }
   return true;
-}
+};
+
+/**
+ *
+ * @param a
+ * @return {string}
+ */
 CAL.toURI = function (a) {
   t = [];
   for (x in a) {
     t.push(x + "=" + encodeURIComponent(a[x]));
   }
   return t.join("&");
-}
+};
+
+/**
+ *
+ * @param object
+ * @param callback
+ * @return {*}
+ */
 CAL.each = function (object, callback) {
   if (typeof object == "undefined")
     return;
@@ -756,14 +913,25 @@ CAL.each = function (object, callback) {
     }
   }
   return object;
-}
+};
+
+/**
+ *
+ * @param a
+ * @param obj
+ * @return {boolean}
+ */
 CAL.contains = function (a, obj) {
   var i = a.length;
   while (i--)
     if (a[i] === obj)
       return true;
   return false;
-}
+};
+
+/**
+ *
+ */
 CAL.update_vcal = function () {
   var v = CAL.current_user_id;
   var callback = {
@@ -783,7 +951,9 @@ CAL.update_vcal = function () {
   YAHOO.util.Connect.asyncRequest('GET', url, callback, false);
 };
 
-
+/**
+ *
+ */
 CAL.remove_edit_dialog();
 var cal_loaded = true;
 $($.fullCalendar).ready(function () {
