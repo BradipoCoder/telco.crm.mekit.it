@@ -134,13 +134,12 @@ class CalendarViewQuickEditRas extends SugarView
         $sugarField = $handler::getSugarField($type);
 
         $fa = [];
+
         $vd = [
-            'function' => [
-                'returns' => 'html'
-            ]
+
         ];
         $dp = [];
-        $ti = 199;
+        $ti = 1;
         $ff = $sugarField->getEditViewSmarty($fa, $vd, $dp, $ti);
 
         $data[] = print_r($vd, true);
