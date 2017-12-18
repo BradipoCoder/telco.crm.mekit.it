@@ -8,6 +8,7 @@ require_once('include/EditView/EditView2.php');
 require_once("modules/Calendar/CalendarUtils.php");
 require_once('include/json_config.php');
 require_once("data/BeanFactory.php");
+require_once('include/SugarFields/SugarFieldHandler.php');
 
 /**
  * Class CalendarViewQuickEditRas
@@ -106,6 +107,7 @@ class CalendarViewQuickEditRas extends SugarView
         $ev->ss = new Sugar_Smarty();
         $ev->formName = "CalendarEditView";
 
+        //Default values
         $this->bean->name = "Nuovo RAS di Adam";
 
         $ev->setup($moduleName, $this->bean, $source, $tpl);
@@ -113,14 +115,46 @@ class CalendarViewQuickEditRas extends SugarView
         //$ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
         $ev->process(false, "CalendarEditView");
 
+        $html = '';
 
-        $html = $ev->display(false, true);
-
-        /*
+        $fieldName = 'name';
         $data = [];
-        $data[] = print_r($ev, true);
-        $html = '<pre>' . htmlentities(implode("\n", $data)). '</pre>';
-        */
+        $data[] = print_r($ev->fieldDefs[$fieldName], true);
+
+
+
+        $handler = new \SugarFieldHandler();
+        $type = $ev->fieldDefs[$fieldName]['type'];
+        if(isset($ev->fieldDefs[$fieldName]['custom_type']) && !empty($ev->fieldDefs[$fieldName]['custom_type']))
+        {
+            $type = $ev->fieldDefs[$fieldName]['custom_type'];
+        }
+
+        /** @var \SugarFieldBase $sugarField */
+        $sugarField = $handler::getSugarField($type);
+
+        $fa = [];
+        $vd = [
+            'function' => [
+                'returns' => 'html'
+            ]
+        ];
+        $dp = [];
+        $ti = 199;
+        $ff = $sugarField->getEditViewSmarty($fa, $vd, $dp, $ti);
+
+        $data[] = print_r($vd, true);
+
+        $data[] = print_r($ff, true);
+
+
+
+
+        $html .= '<pre>' . htmlentities(implode("\n", $data)). '</pre>';
+
+        $html .= $ev->display(false, true);
+
+
 
         return $html;
     }

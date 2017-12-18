@@ -209,8 +209,7 @@ CAL.fill_repeat_tab = function (data) {
  */
 CAL.repeat_tab_handle = function (module_name) {
   clear_all_errors();
-  if (CAL.enable_repeat)
-  {
+  if (CAL.enable_repeat) {
     toggle_repeat_type();
   }
 };
@@ -601,31 +600,79 @@ CAL.full_form = function () {
 };
 
 /**
- *
+ * Buttons - disable
  */
 CAL.disable_buttons = function () {
-  CAL.get("btn-save").setAttribute("disabled", "disabled");
-  CAL.get("btn-send-invites").setAttribute("disabled", "disabled");
-  CAL.get("btn-delete").setAttribute("disabled", "disabled");
-  CAL.get("btn-full-form").setAttribute("disabled", "disabled");
+  var button;
+
+  if (button = CAL.get("btn-save"))
+  {
+    button.setAttribute("disabled", "disabled");
+  }
+
+  if (button = CAL.get("btn-send-invites"))
+  {
+    button.setAttribute("disabled", "disabled");
+    button.style.display = 'none';
+  }
+
+  if (button = CAL.get("btn-delete"))
+  {
+    button.setAttribute("disabled", "disabled");
+    button.style.display = 'none';
+  }
+
+  if (button = CAL.get("btn-full-form"))
+  {
+    button.setAttribute("disabled", "disabled");
+    button.style.display = 'none';
+  }
+
   if (CAL.enable_repeat) {
-    CAL.get("btn-edit-all-recurrences").setAttribute("disabled", "disabled");
-    CAL.get("btn-remove-all-recurrences").setAttribute("disabled", "disabled");
+    if (button = CAL.get("btn-edit-all-recurrences")) {
+      button.setAttribute("disabled", "disabled");
+    }
+    if (button = CAL.get("btn-remove-all-recurrences")) {
+      button.setAttribute("disabled", "disabled");
+    }
   }
 };
 
 /**
- *
+ * Buttons - enable
  */
 CAL.enable_buttons = function () {
-  CAL.get("btn-save").removeAttribute("disabled");
-  CAL.get("btn-send-invites").removeAttribute("disabled");
+  var button;
+
+  if (button = CAL.get("btn-save")) {
+    button.removeAttribute("disabled");
+  }
+
+  if (button = CAL.get("btn-send-invites")) {
+    button.removeAttribute("disabled");
+  }
+
+
   if (CAL.get("record").value != "")
-    CAL.get("btn-delete").removeAttribute("disabled");
-  CAL.get("btn-full-form").removeAttribute("disabled");
+  {
+    if (button = CAL.get("btn-delete"))
+    {
+      button.removeAttribute("disabled");
+    }
+  }
+
+  if (button = CAL.get("btn-full-form"))
+  {
+    button.removeAttribute("disabled");
+  }
+
   if (CAL.enable_repeat) {
-    CAL.get("btn-edit-all-recurrences").removeAttribute("disabled");
-    CAL.get("btn-remove-all-recurrences").removeAttribute("disabled");
+    if (button = CAL.get("btn-edit-all-recurrences")) {
+      button.removeAttribute("disabled");
+    }
+    if (button = CAL.get("btn-remove-all-recurrences")) {
+      button.removeAttribute("disabled");
+    }
   }
 };
 
@@ -636,7 +683,7 @@ CAL.enable_buttons = function () {
  * @param user_id
  */
 CAL.dialog_create = function (date, end_date, user_id) {
-  var e, user_id, user_name;
+  var user_name;
   CAL.get("title-cal-edit").innerHTML = CAL.lbl_loading;
   CAL.open_edit_dialog();
   CAL.disable_buttons();
@@ -683,10 +730,14 @@ CAL.dialog_create = function (date, end_date, user_id) {
 };
 
 /**
- *
+ * Save dialog data
  */
 CAL.dialog_save = function () {
-  CAL.disable_buttons();
+
+  //@todo: re-enable me!
+  //CAL.disable_buttons();
+
+
   ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'));
   if (CAL.get("send_invites").value == "1") {
     CAL.get("title-cal-edit").innerHTML = CAL.lbl_sending;
@@ -697,11 +748,23 @@ CAL.dialog_save = function () {
   CAL.fill_repeat_data();
   var callback = {
     success: function (o) {
+      var showError = function(response, type)
+      {
+        var message = "["+type+"] - " + CAL.lbl_error_saving;
+        if(response["message"])
+        {
+          message += "\n" + response["message"];
+        }
+        alert(message);
+      };
+
+      var res;
       try {
         SUGAR.util.globalEval("retValue = (" + o.responseText + ")");
         res = retValue;
       } catch (err) {
-        alert(CAL.lbl_error_saving);
+        //alert(CAL.lbl_error_saving);
+        showError(res, err);
         $('.modal-cal-edit').modal('hide');
         ajaxStatus.hideStatus();
         return;
@@ -751,11 +814,13 @@ CAL.dialog_save = function () {
         }
         ajaxStatus.hideStatus();
       } else {
-        alert(CAL.lbl_error_saving);
+        //alert(CAL.lbl_error_saving);
+        showError(res, "NO ACCESS");
         ajaxStatus.hideStatus();
       }
     }, failure: function () {
-      alert(CAL.lbl_error_saving);
+      //alert(CAL.lbl_error_saving);
+      showError(res, "FAILURE");
       ajaxStatus.hideStatus();
     }
   };

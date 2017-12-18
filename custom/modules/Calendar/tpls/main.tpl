@@ -161,7 +161,7 @@
   });
 </script>
 
-<div class="modal fade modal-cal-edit" tabindex="-1" role="dialog">
+<div class="modal fade modal-cal-edit" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -193,7 +193,7 @@
 </div>
 
 
-<div class="modal fade modal-cal-tasks-edit" tabindex="-1" role="dialog">
+<div class="modal fade modal-cal-tasks-edit" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -216,7 +216,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade modal-cal-events-edit" tabindex="-1" role="dialog">
+<div class="modal fade modal-cal-events-edit" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
