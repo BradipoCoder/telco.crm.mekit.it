@@ -78,7 +78,8 @@ class CalendarViewQuickEditRas extends SugarView
     {
         $ss = new Sugar_Smarty();
 
-        $ss->assign('FORM_CASES', $this->getCasesEditForm());
+        $ss->assign('FORM_CUSTOM', $this->getCustomForm());
+        //$ss->assign('FORM_CASES', $this->getCasesEditForm());
         //$ss->assign('FORM_ACCOUNTS', $this->getAccountEditForm());
         //$ss->assign('FORM_MEETINGS', $this->getMeetingsEditForm());
 
@@ -86,6 +87,40 @@ class CalendarViewQuickEditRas extends SugarView
         $answer = $ss->fetch("custom/modules/Calendar/tpls/ras.tpl");
 
         return $answer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomForm()
+    {
+        $html = '';
+
+        $moduleName = "Cases";
+        $source = 'custom/modules/' . $moduleName . '/metadata/calendar_createdefs.php';
+        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
+        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
+
+        $ev = new EditView();
+        $ev->view = "CalendarCreate";
+        $ev->ss = new Sugar_Smarty();
+
+
+
+        //$ev->ss->left_delimiter = '{{';
+        //$ev->ss->right_delimiter = '}}';
+
+
+        $ev->formName = "CalendarEditView";
+
+        //Default values
+        $this->bean->name = "CUSTOM RAS";
+
+        $ev->setup($moduleName, $this->bean, $source, $tpl);
+        $ev->process(false, "CalendarEditView");
+        $html = $ev->display(false, true);
+
+        return $html;
     }
 
 
@@ -113,47 +148,9 @@ class CalendarViewQuickEditRas extends SugarView
         $ev->setup($moduleName, $this->bean, $source, $tpl);
         //$ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
         //$ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";
+
         $ev->process(false, "CalendarEditView");
-
-        $html = '';
-
-        $fieldName = 'name';
-        $data = [];
-        $data[] = print_r($ev->fieldDefs[$fieldName], true);
-
-
-
-        $handler = new \SugarFieldHandler();
-        $type = $ev->fieldDefs[$fieldName]['type'];
-        if(isset($ev->fieldDefs[$fieldName]['custom_type']) && !empty($ev->fieldDefs[$fieldName]['custom_type']))
-        {
-            $type = $ev->fieldDefs[$fieldName]['custom_type'];
-        }
-
-        /** @var \SugarFieldBase $sugarField */
-        $sugarField = $handler::getSugarField($type);
-
-        $fa = [];
-
-        $vd = [
-
-        ];
-        $dp = [];
-        $ti = 1;
-        $ff = $sugarField->getEditViewSmarty($fa, $vd, $dp, $ti);
-
-        $data[] = print_r($vd, true);
-
-        $data[] = print_r($ff, true);
-
-
-
-
-        $html .= '<pre>' . htmlentities(implode("\n", $data)). '</pre>';
-
-        $html .= $ev->display(false, true);
-
-
+        $html = $ev->display(false, true);
 
         return $html;
     }

@@ -13,22 +13,20 @@ class CaseFormBase extends FormBase
 {
 
 
+    public function buildForm($record)
+    {
+
+    }
+
     /**
      * handles save functionality for meetings
      *
-     * @param	string $prefix
-     * @param	bool $redirect
-     * @param	bool $useRequired
-     *
+     * @param string $prefix
      * @throws \Exception
-     *
      * @returns \SugarBean
      */
-    function handleSave($prefix, $redirect=true, $useRequired=false)
+    public function handleSave($prefix = '')
     {
-        //global $current_user;
-        //global $timedate;
-
         $case = new aCase();
         $case = populateFromPost($prefix, $case);
 

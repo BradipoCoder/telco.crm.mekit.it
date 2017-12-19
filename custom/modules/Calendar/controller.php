@@ -84,7 +84,7 @@ class CustomCalendarController extends CalendarController
 
         try
         {
-            $bean = $formBase->handleSave('', false, false);
+            $bean = $formBase->handleSave();
         } catch(\Exception $e)
         {
             $this->view_object_map["jsonData"] = array_merge($this->view_object_map["jsonData"], [
