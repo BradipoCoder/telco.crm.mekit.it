@@ -20,7 +20,7 @@
                             {*--- NAME ---*}
                             <div class="form-group col-sm-6">
                                 <label for="name" data-label="LBL_SUBJECT">{$MOD_CASES.LBL_SUBJECT}<span class="required">*</span></label>
-                                {render_module_field field_name="name" tab_index=1 module=$module_cases fields=$fields_cases form_name=$form_name}
+                                {render_module_field field_name="cases_name" tab_index=1 module=$module_cases fields=$fields_cases form_name=$form_name}
                             </div>
 
                             {*--- ASSIGNED USER ---*}
@@ -63,13 +63,27 @@
                                 <div class="data-group">
 
                                     {*--- ACCOUNT NAME ---*}
+                                    <div class="form-group">
+                                        <label for="accounts_name" data-label="LBL_NAME">{$MOD_ACCOUNTS.LBL_NAME}</label>
+                                        <div class="col-sm-12">
+                                            {render_module_field field_name="accounts_name" tab_index=10 module=$module_accounts fields=$fields_accounts form_name=$form_name}
+                                        </div>
+                                    </div>
 
-                                    {*NOTE: NEED TO PREFIX FIELD BECAUSE IT CLASHES WITH OTHER MODULES*}
+                                    <div class="form-inline">
+                                        {*--- PHONE OFFICE ---*}
+                                        <div class="form-group col-sm-6">
+                                            <label for="phone_office" data-label="LBL_PHONE_OFFICE">{$MOD_ACCOUNTS.LBL_PHONE_OFFICE}</label>
+                                            {render_module_field field_name="phone_office" tab_index=10 module=$module_accounts fields=$fields_accounts form_name=$form_name}
+                                        </div>
 
-                                    {*<div class="form-group col-sm-6">*}
-                                        {*<label for="account_name" data-label="LBL_NAME">{$MOD_ACCOUNTS.LBL_NAME}</label>*}
-                                        {*{render_module_field prefix="accounts" field_name="name" tab_index=10 module=$module_accounts fields=$fields_accounts form_name=$form_name}*}
-                                    {*</div>*}
+                                        {*--- PHONE ALTERNATE ---*}
+                                        <div class="form-group col-sm-6">
+                                            <label for="phone_alternate" data-label="LBL_PHONE_ALT">{$MOD_ACCOUNTS.LBL_PHONE_ALT}</label>
+                                            {render_module_field field_name="phone_alternate" tab_index=10 module=$module_accounts fields=$fields_accounts form_name=$form_name}
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>

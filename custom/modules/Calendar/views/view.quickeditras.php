@@ -133,6 +133,9 @@ class CalendarViewQuickEditRas extends SugarView
         /** @var array $app_list_strings */
         global $app_list_strings;
 
+        $module_name = $bean->module_name;
+        $module_prefix = strtolower($module_name);
+        $fields_to_prefix = ["id", "name"];
         $fieldDefs = $bean->getFieldDefinitions();
 
         /* options for enum types */
@@ -170,6 +173,18 @@ class CalendarViewQuickEditRas extends SugarView
 
             // ... OR POPULATE FROM REQUEST ?
             // $this->fieldDefs[$name]['value'] = $this->getValueFromRequest($_REQUEST, $name);
+        }
+
+        foreach($fields_to_prefix as $fieldName)
+        {
+            if(isset($fieldDefs[$fieldName]))
+            {
+                //$fieldVal = $fieldDefs[$fieldName];
+                $prefixedFieldName = $module_prefix . "_" . $fieldName;
+                $fieldDefs[$prefixedFieldName] = $fieldDefs[$fieldName];
+                $fieldDefs[$prefixedFieldName]["name"] = $prefixedFieldName;
+                unset($fieldDefs[$fieldName]);
+            }
         }
 
         return $fieldDefs;
