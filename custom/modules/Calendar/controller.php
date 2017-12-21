@@ -20,8 +20,37 @@ class CustomCalendarController extends CalendarController
      */
     protected $allowedCompoundModules = ["RAS"];
 
+
+
     /**
-     *
+     * Action QuickEdit
+     */
+    protected function action_quickedit()
+    {
+        $is_compound_module = false;
+        $compound_module_name = "";
+
+        $this->view = 'quickedit';
+
+        if ($is_compound_module = (isset($_REQUEST['current_module']) && in_array($_REQUEST['current_module'], $this->allowedCompoundModules)))
+        {
+            $compound_module_name = $_REQUEST['current_module'];
+            $_REQUEST['current_module'] = "Cases";
+        }
+
+        if ($this->retrieveCurrentBean('Detail')) {
+            $this->view_object_map['currentModule'] = $this->currentBean->module_dir;
+            $this->view_object_map['currentBean'] = $this->currentBean;
+        }
+
+        if($is_compound_module)
+        {
+            $this->view = 'quickedit' . strtolower($compound_module_name);
+        }
+    }
+
+    /**
+     *  SAVE
      */
     protected function action_saveactivity()
     {
@@ -103,33 +132,6 @@ class CustomCalendarController extends CalendarController
             'message' => 'OK - saved with id: ' . $bean->id
         ]);
 
-    }
-
-    /**
-     * Action QuickEdit
-     */
-    protected function action_quickedit()
-    {
-        $is_compound_module = false;
-        $compound_module_name = "";
-
-        $this->view = 'quickedit';
-
-        if ($is_compound_module = (isset($_REQUEST['current_module']) && in_array($_REQUEST['current_module'], $this->allowedCompoundModules)))
-        {
-            $compound_module_name = $_REQUEST['current_module'];
-            $_REQUEST['current_module'] = "Cases";
-        }
-
-        if ($this->retrieveCurrentBean('Detail')) {
-            $this->view_object_map['currentModule'] = $this->currentBean->module_dir;
-            $this->view_object_map['currentBean'] = $this->currentBean;
-        }
-
-        if($is_compound_module)
-        {
-            $this->view = 'quickedit' . strtolower($compound_module_name);
-        }
     }
 
     /**

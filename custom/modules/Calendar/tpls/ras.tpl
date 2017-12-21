@@ -1,3 +1,5 @@
+{sugar_getscript file="custom/modules/Calendar/js/Ras.js"}
+
 <div id="CompoundEditView">
 
 
@@ -12,26 +14,71 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
+                    <div class="form-custom-was-horizontal-but-now-it-is-not-anymore by-jack">
 
-                    {*--- NAME ---*}
-                    <div class="row edit-view-row">
-                        <div class="col-xs-12 col-sm-12 edit-view-row-item">
-                            <div class="col-xs-12 col-sm-2 label" data-label="LBL_SUBJECT">
-                                {$MOD_CASES.LBL_SUBJECT}<span class="required">*</span>
+                        <div class="form-inline">
+                            {*--- NAME ---*}
+                            <div class="form-group col-sm-6">
+                                <label for="name" data-label="LBL_SUBJECT">{$MOD_CASES.LBL_SUBJECT}<span class="required">*</span></label>
+                                {render_module_field field_name="name" tab_index=1 module=$module_cases fields=$fields_cases form_name=$form_name}
                             </div>
-                            <div class="col-xs-12 col-sm-10 edit-view-field">
-                                {
-                                render_module_field
-                                module=$module_cases
-                                fields=$fields_cases
-                                field_name="name"
-                                form_name=$form_name
-                                tab_index=1
-                                }
+
+                            {*--- ASSIGNED USER ---*}
+                            <div class="form-group col-sm-6">
+                                <label for="assigned_user_name" data-label="LBL_ASSIGNED_TO_NAME">{$MOD_CASES.LBL_ASSIGNED_TO_NAME}</label>
+                                {render_module_field field_name="assigned_user_name" tab_index=2 module=$module_cases fields=$fields_cases form_name=$form_name}
                             </div>
                         </div>
-                    </div>
 
+                        {*--- DESCRIPTION ---*}
+                        <div class="form-group">
+                            <label for="description" data-label="LBL_DESCRIPTION" class="col-sm-12">{$MOD_CASES.LBL_DESCRIPTION}</label>
+                            <div class="col-sm-12">
+                                {render_module_field field_name="description" tab_index=3 module=$module_cases fields=$fields_cases form_name=$form_name}
+                            </div>
+                        </div>
+
+                        <div class="radio-selection-account">
+                            <div class="selection-group selection-group--select">
+                                <label>
+                                    <input type="radio" name="account_creation_radios" id="account_creation_radio_1" value="select" checked>
+                                    Seleziona cliente esistente
+                                </label>
+                                {*--- ACCOUNT ---*}
+                                <div class="data-group">
+                                    <div class="form-group">
+                                        <label for="account_name" data-label="LBL_ACCOUNT_NAME" class="col-sm-12 sr-only">{$MOD_CASES.LBL_ACCOUNT_NAME}</label>
+                                        <div class="col-sm-12">
+                                            {render_module_field field_name="account_name" tab_index=4 module=$module_cases fields=$fields_cases form_name=$form_name}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="selection-group selection-group--create">
+                                <label>
+                                    <input type="radio" name="account_creation_radios" id="account_creation_radio_2" value="create">
+                                    Crea nuovo cliente
+                                </label>
+                                <div class="data-group">
+
+                                    {*--- ACCOUNT NAME ---*}
+
+                                    {*NOTE: NEED TO PREFIX FIELD BECAUSE IT CLASHES WITH OTHER MODULES*}
+
+                                    {*<div class="form-group col-sm-6">*}
+                                        {*<label for="account_name" data-label="LBL_NAME">{$MOD_ACCOUNTS.LBL_NAME}</label>*}
+                                        {*{render_module_field prefix="accounts" field_name="name" tab_index=10 module=$module_accounts fields=$fields_accounts form_name=$form_name}*}
+                                    {*</div>*}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,26 +94,25 @@
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
 
-                    {*--- STATE ---*}
-                    <div class="row edit-view-row">
-                        <div class="col-xs-12 col-sm-12 edit-view-row-item">
-                            <div class="col-xs-12 col-sm-2 label" data-label="LBL_STATE">
-                                {$MOD_CASES.LBL_STATE}<span class="required">*</span>
-                            </div>
-                            <div class="col-xs-12 col-sm-10 edit-view-field">
-                                {
-                                render_module_field
-                                module=$module_cases
-                                fields=$fields_cases
-                                field_name="state"
-                                form_name=$form_name
-                                tab_index=100
-                                }
-                            </div>
+                    <div class="form-inline">
+                        {*--- STATE ---*}
+                        <div class="form-group col-sm-4">
+                            <label for="state" data-label="LBL_STATE">{$MOD_CASES.LBL_STATE}<span class="required">*</span></label>
+                            {render_module_field field_name="state" tab_index=101 module=$module_cases fields=$fields_cases form_name=$form_name}
+                        </div>
+
+                        {*--- PRIORITY ---*}
+                        <div class="form-group col-sm-4">
+                            <label for="priority" data-label="LBL_PRIORITY">{$MOD_CASES.LBL_PRIORITY}<span class="required">*</span></label>
+                            {render_module_field field_name="priority" tab_index=102 module=$module_cases fields=$fields_cases form_name=$form_name}
+                        </div>
+
+                        {*--- TYPE ---*}
+                        <div class="form-group col-sm-4">
+                            <label for="type" data-label="LBL_TYPE">{$MOD_CASES.LBL_TYPE}<span class="required">*</span></label>
+                            {render_module_field field_name="type" tab_index=103 module=$module_cases fields=$fields_cases form_name=$form_name}
                         </div>
                     </div>
-
-
 
                 </div>
             </div>

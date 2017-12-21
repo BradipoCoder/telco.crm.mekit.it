@@ -31,14 +31,15 @@ function smarty_function_render_module_field($params, &$smarty)
     }
     $params["vardef"] = $params["fields"][$params["field_name"]];
 
+    $display_params = [];
+
     //optional parameter keys
     $params["parent_field_array"] = isset($params["parent_field_array"]) ? $params["parent_field_array"] : 'fields';
     $params["display_type"] = isset($params["display_type"]) ? $params["display_type"] : 'EditView';
-    $params["display_params"] = isset($params["display_params"]) ? $params["display_params"] : [];
+    $params["display_params"] = isset($params["display_params"]) ? $params["display_params"] : $display_params;
     $params["access_key"] = isset($params["access_key"]) ? $params["access_key"] : null;
     $params["tab_index"] = isset($params["tab_index"]) ? $params["tab_index"] : 1;
     $params["type_override"] = isset($params["type_override"]) ? $params["type_override"] : null;
-
 
     // Assign all params to Smarty
     foreach ($params as $k => $v) {

@@ -18,9 +18,13 @@ class CalendarViewQuickEditRas extends SugarView
     /** @var string */
     private $baseModuleName = "Cases";
 
-    /**
-     * @var boolean
-     */
+    /** @var  \aCase */
+    public $bean;
+
+    /** @var  \Account */
+    public $bean_account;
+
+    /** @var bool */
     protected $editable = false;
 
     /**
@@ -74,29 +78,53 @@ class CalendarViewQuickEditRas extends SugarView
      */
     protected function getMainDisplay()
     {
+        /** @var \User $current_user */
+        global $current_user;
+
+        $timedate = \TimeDate::getInstance();
+        //$userTimeZone = $timedate::userTimezone($current_user);// "Europe/Rome"
+        $formattedUserDate = $timedate->now();
+
+
         $ss = new Sugar_Smarty();
 
         //COMMON
         $ss->assign('form_name', "CalendarEditView");
 
-        //CASES
+        //---------------------------------------------------------------------------------------------------------CASES
         $moduleName = "Cases";
+        //Default values
+        $this->bean->name = "RAS del " . $formattedUserDate;
+        $this->bean->assigned_user_id = $current_user->id;
+        $this->bean->assigned_user_name = $current_user->full_name;
+        //Template assignments
         $ss->assign('module_cases', $moduleName);
         $ss->assign('fields_cases', $this->getFieldDefinitionsForBean($this->bean));
         $ss->assign('MOD_CASES', return_module_language($GLOBALS['current_language'], $moduleName));
 
 
-        //$ss->assign('FORM_CASES', $this->getCasesEditForm());
-        //$ss->assign('FORM_ACCOUNTS', $this->getAccountEditForm());
-        //$ss->assign('FORM_MEETINGS', $this->getMeetingsEditForm());
+        //------------------------------------------------------------------------------------------------------ACCOUNTS
+        $moduleName = "Accounts";
+        $record_account = null;
+        //Bean
+        $this->bean_account = \BeanFactory::getBean($moduleName, $record_account);
+        //Default values
+        $this->bean_account->name = "Micosoft";
+        //$this->bean->assigned_user_id = $current_user->id;
+        //$this->bean->assigned_user_name = $current_user->full_name;
+        //Template assignments
+        $ss->assign('module_accounts', $moduleName);
+        $ss->assign('fields_accounts', $this->getFieldDefinitionsForBean($this->bean_account));
+        $ss->assign('MOD_ACCOUNTS', return_module_language($GLOBALS['current_language'], $moduleName));
 
 
-        $answer = $ss->fetch("custom/modules/Calendar/tpls/ras.tpl");
-
-        return $answer;
+        return $ss->fetch("custom/modules/Calendar/tpls/ras.tpl");
     }
 
     /**
+     *
+     * @see include/EditView/EditView2.php:504
+     *
      * @param \SugarBean $bean
      * @return array
      */
@@ -108,24 +136,40 @@ class CalendarViewQuickEditRas extends SugarView
         $fieldDefs = $bean->getFieldDefinitions();
 
         /* options for enum types */
-        foreach ($fieldDefs as $key => $value) {
+        foreach ($fieldDefs as $key => &$defElement) {
+
+            // MERGE FIELD DEFINITION - COPIED - IS THIS USEFUL?
+            $defElement = (!empty($defElement) && !empty($ieldDefs[$key]['value']))
+                ? array_merge($bean->field_defs[$key], $defElement)
+                : $bean->field_defs[$key];
+
+            // SET ENUM OPTIONS
             if (
-                isset($fieldDefs[$key]['options']) &&
-                isset($app_list_strings[$fieldDefs[$key]['options']])
+                isset($defElement['options']) &&
+                isset($app_list_strings[$defElement['options']])
             ) {
                 if (
                     isset($GLOBALS['sugar_config']['enable_autocomplete']) &&
                     $GLOBALS['sugar_config']['enable_autocomplete'] == true
                 ) {
-                    $fieldDefs[$key]['autocomplete'] = true;
-                    $fieldDefs[$key]['autocomplete_options'] = $fieldDefs[$key]['options'];
+                    $defElement['autocomplete'] = true;
+                    $defElement['autocomplete_options'] = $defElement['options'];
                 } else {
-                    $fieldDefs[$key]['autocomplete'] = false;
+                    $defElement['autocomplete'] = false;
                 }
 
-                $fieldDefs[$key]['options'] = $app_list_strings[$fieldDefs[$key]['options']];
+                $defElement['options'] = $app_list_strings[$defElement['options']];
             }
 
+            //SET BEAN DEFINED VALUES
+            $value = isset($bean->$key) ? $bean->$key : '';
+
+            if (empty($defElement['value'])) {
+                $defElement['value'] = $value;
+            }
+
+            // ... OR POPULATE FROM REQUEST ?
+            // $this->fieldDefs[$name]['value'] = $this->getValueFromRequest($_REQUEST, $name);
         }
 
         return $fieldDefs;

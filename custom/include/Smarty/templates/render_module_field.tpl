@@ -20,14 +20,14 @@
 {eval var=$field_markup}
 <!-- RENDER MODULE FIELD({$field_name}) END -->
 
-<pre>
+{*<pre>*}
     {*---------------------------*}
     {*--- RENDER MODULE FIELD ---*}
     {*---------------------------*}
     {*module: {$module}*}
     {*form_name: {$form_name}*}
-    field_name: {$field_name}
-    vardef: {$vardef|@json_encode}
+    {*field_name: {$field_name}*}
+    {*vardef: {$vardef|@json_encode}*}
     {*display_params: {$display_params|@json_encode}*}
-</pre>
+{*</pre>*}
 
