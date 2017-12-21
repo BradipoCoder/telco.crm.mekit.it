@@ -693,7 +693,7 @@ CAL.dialog_create = function (date, end_date, user_id) {
    * HIDE THE Invitee creation form
    */
   if (!CAL.enable_invitees) {
-    console.log("INVITIEES: " + CAL.enable_invitees);
+    //console.log("INVITIEES: " + CAL.enable_invitees);
     document.getElementById("create-invitees").style.display = 'none';
   }
 

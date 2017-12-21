@@ -15,7 +15,7 @@ require_once('include/SugarFields/SugarFieldHandler.php');
  */
 class CalendarViewQuickEditRas extends SugarView
 {
-    /** @var string  */
+    /** @var string */
     private $baseModuleName = "Cases";
 
     /**
@@ -28,8 +28,7 @@ class CalendarViewQuickEditRas extends SugarView
      */
     public function preDisplay()
     {
-        if(isset($this->view_object_map['currentBean']))
-        {
+        if (isset($this->view_object_map['currentBean'])) {
             $this->bean = $this->view_object_map['currentBean'];
             $this->editable = $this->bean->ACLAccess('Save');
         }
@@ -61,9 +60,8 @@ class CalendarViewQuickEditRas extends SugarView
             'gr' => $gr
         ];
 
-        if($repeat_arr = CalendarUtils::get_sendback_repeat_data($this->bean))
-        {
-            $json_arr = array_merge($json_arr,array("repeat" => $repeat_arr));
+        if ($repeat_arr = CalendarUtils::get_sendback_repeat_data($this->bean)) {
+            $json_arr = array_merge($json_arr, array("repeat" => $repeat_arr));
         }
 
         ob_clean();
@@ -78,7 +76,16 @@ class CalendarViewQuickEditRas extends SugarView
     {
         $ss = new Sugar_Smarty();
 
-        $ss->assign('FORM_CUSTOM', $this->getCustomForm());
+        //COMMON
+        $ss->assign('form_name', "CalendarEditView");
+
+        //CASES
+        $moduleName = "Cases";
+        $ss->assign('module_cases', $moduleName);
+        $ss->assign('fields_cases', $this->getFieldDefinitionsForBean($this->bean));
+        $ss->assign('MOD_CASES', return_module_language($GLOBALS['current_language'], $moduleName));
+
+
         //$ss->assign('FORM_CASES', $this->getCasesEditForm());
         //$ss->assign('FORM_ACCOUNTS', $this->getAccountEditForm());
         //$ss->assign('FORM_MEETINGS', $this->getMeetingsEditForm());
@@ -90,40 +97,39 @@ class CalendarViewQuickEditRas extends SugarView
     }
 
     /**
-     * @return string
+     * @param \SugarBean $bean
+     * @return array
      */
-    public function getCustomForm()
+    protected function getFieldDefinitionsForBean(\SugarBean $bean)
     {
-        $html = '';
+        /** @var array $app_list_strings */
+        global $app_list_strings;
 
-        $moduleName = "Cases";
-        $source = 'custom/modules/' . $moduleName . '/metadata/calendar_createdefs.php';
-        $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], $moduleName);
-        $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
+        $fieldDefs = $bean->getFieldDefinitions();
 
-        $ev = new EditView();
-        $ev->view = "CalendarCreate";
-        $ev->ss = new Sugar_Smarty();
+        /* options for enum types */
+        foreach ($fieldDefs as $key => $value) {
+            if (
+                isset($fieldDefs[$key]['options']) &&
+                isset($app_list_strings[$fieldDefs[$key]['options']])
+            ) {
+                if (
+                    isset($GLOBALS['sugar_config']['enable_autocomplete']) &&
+                    $GLOBALS['sugar_config']['enable_autocomplete'] == true
+                ) {
+                    $fieldDefs[$key]['autocomplete'] = true;
+                    $fieldDefs[$key]['autocomplete_options'] = $fieldDefs[$key]['options'];
+                } else {
+                    $fieldDefs[$key]['autocomplete'] = false;
+                }
 
+                $fieldDefs[$key]['options'] = $app_list_strings[$fieldDefs[$key]['options']];
+            }
 
+        }
 
-        //$ev->ss->left_delimiter = '{{';
-        //$ev->ss->right_delimiter = '}}';
-
-
-        $ev->formName = "CalendarEditView";
-
-        //Default values
-        $this->bean->name = "CUSTOM RAS";
-
-        $ev->setup($moduleName, $this->bean, $source, $tpl);
-        $ev->process(false, "CalendarEditView");
-        $html = $ev->display(false, true);
-
-        return $html;
+        return $fieldDefs;
     }
-
-
 
 
     /**
@@ -167,7 +173,6 @@ class CalendarViewQuickEditRas extends SugarView
         $tpl = $this->getCustomFilePathIfExists('include/EditView/EditView.tpl');
 
 
-
         $ev = new EditView();
         $ev->view = "QuickCreate";
         $ev->ss = new Sugar_Smarty();
@@ -178,9 +183,7 @@ class CalendarViewQuickEditRas extends SugarView
         $bean->name = "Nuovo Meeting di Adam";
 
 
-
         $ev->setup($moduleName, $bean, $source, $tpl);
-
 
 
         //$ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
@@ -194,9 +197,7 @@ class CalendarViewQuickEditRas extends SugarView
         //$html .= '<pre>FIELDDEFS: ' . htmlentities(print_r( $ev->fieldDefs, true)). '</pre>';
 
 
-
         $html .= $ev->display(false, true);
-
 
 
         return $html;
@@ -226,9 +227,7 @@ class CalendarViewQuickEditRas extends SugarView
         $bean->name = "Nuovo Account di Adam";
 
 
-
         $ev->setup($moduleName, $bean, $source, $tpl);
-
 
 
         //$ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
@@ -242,9 +241,7 @@ class CalendarViewQuickEditRas extends SugarView
         //$html .= '<pre>FIELDDEFS: ' . htmlentities(print_r( $ev->fieldDefs, true)). '</pre>';
 
 
-
         $html .= $ev->display(false, true);
-
 
 
         return $html;
